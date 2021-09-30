@@ -8,4 +8,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 ## Mentors
 
+- [Mike Lambert](https://github.com/mikeblambert) 🙌
+
 ## Code of Conduct Contacts
