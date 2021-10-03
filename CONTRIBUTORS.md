@@ -13,6 +13,6 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Mentors
 
 - [Mike Lambert](https://github.com/mikeblambert) 🙌
-- [Shajia Abidi] (https://github.com/abidishajia/) 🦜
+- [Shajia Abidi](https://github.com/abidishajia/) 🦜
 
 ## Code of Conduct Contacts
