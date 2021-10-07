@@ -1,8 +1,14 @@
 import { db } from './lib/firebase.js';
-
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { collection, getDocs, query, onSnapshot } from '@firebase/firestore';
+import {
+  collection,
+  getDocs,
+  query,
+  onSnapshot,
+  doc,
+  setDoc,
+} from '@firebase/firestore';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -27,11 +33,20 @@ function App() {
     fetchUsers();
   }, []);
 
+  const handleClick = async () => {
+    await setDoc(doc(db, 'cities', 'LA'), {
+      name: 'Los Angeles',
+      state: 'CA',
+      country: 'USA',
+    });
+  };
+
   return (
     <div className="App">
-      <div>
-        {users && users.map(({ id, name }) => <li key={id}>{name}</li>)}
-      </div>
+      <ul>{users && users.map(({ id, name }) => <li key={id}>{name}</li>)}</ul>
+      <button onClick={handleClick}>
+        Click me to meet Acceptance Criteria 3!
+      </button>
     </div>
   );
 }
