@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import { db } from './lib/firebase.js';
+
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import { collection, getDocs, query, onSnapshot } from '@firebase/firestore';
 
 function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = collection(db, 'users');
+      const usersList = query(response);
+      // console.log(usersList.users.docs);
+      // setUsers(data)
+      const unsubscribe = onSnapshot(usersList, (querySnapshot) => {
+        const users = querySnapshot.docs.reduce((acc, doc) => {
+          const { name } = doc.data();
+          const id = doc.id;
+          return [...acc, { id, name }];
+        }, []);
+
+        setUsers(users);
+      });
+    };
+
+    fetchUsers();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        {users && users.map(({ id, name }) => <li key={id}>{name}</li>)}
+      </div>
     </div>
   );
 }
