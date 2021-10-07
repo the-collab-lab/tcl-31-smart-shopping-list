@@ -1,16 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   NavLink,
+  Route,
+  Switch,
 } from 'react-router-dom';
+import { List } from './List';
+import { Add } from './Add';
 
 function App() {
   return (
     <Router>
+      {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+      <Switch>
+        <Route path="/list">
+          <List />
+        </Route>
+        <Route path="/add">
+          <Add />
+        </Route>
+      </Switch>
+
       <div className="links">
         <nav>
           <ul className="linkslist">
@@ -26,28 +38,9 @@ function App() {
             </li>
           </ul>
         </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/list">
-            <List />
-          </Route>
-          <Route path="/add">
-            <Add />
-          </Route>
-        </Switch>
       </div>
     </Router>
   );
-}
-
-function List() {
-  return <div></div>;
-}
-
-function Add() {
-  return <div></div>;
 }
 
 export default App;

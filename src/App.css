@@ -2,10 +2,6 @@
   margin: 0;
   padding: 0;
 }
-ol,
-ul {
-  list-style: none;
-}
 
 .links {
   position: fixed;
@@ -21,8 +17,18 @@ ul {
   padding: 20px;
   justify-content: space-around;
   width: 100vh;
+  list-style: none;
 }
 
 .selected {
   font-weight: bold;
+}
+
+.list {
+  margin: 50px;
+}
+
+.add {
+  margin: 50px;
+  background-color: cadetblue;
 }
