@@ -1,9 +1,10 @@
 import React from 'react';
+import AddForm from './AddForm';
 
 export function Add() {
   return (
     <div>
-      <button className="add">Create a new item</button>
+      <AddForm />
     </div>
   );
 }
