@@ -5,7 +5,7 @@ import {
   query,
   onSnapshot,
   doc,
-  setDoc,
+  addDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 
@@ -17,10 +17,11 @@ function AddForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await setDoc(doc(db, 'shopping-list', token), {
+    await addDoc(collection(db, 'shopping-list'), {
       name: item,
       days,
       lastPurchasedDate: null,
+      token,
     });
   }
 
