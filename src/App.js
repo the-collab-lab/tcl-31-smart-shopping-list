@@ -62,15 +62,6 @@ function App() {
         </Route>
       </Switch>
 
-      <div className="App">
-        <ul>
-          {users && users.map(({ id, name }) => <li key={id}>{name}</li>)}
-        </ul>
-        <button onClick={handleClick}>
-          Click me to meet Acceptance Criteria 3!
-        </button>
-      </div>
-
       <div className="links">
         <nav>
           <ul className="linkslist">
