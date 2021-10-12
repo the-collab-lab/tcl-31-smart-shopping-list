@@ -11,6 +11,7 @@ import {
 } from '@firebase/firestore';
 import {
   BrowserRouter as Router,
+  Link,
   NavLink,
   Route,
   Switch,
@@ -18,6 +19,7 @@ import {
 import { List } from './List';
 import { Add } from './Add';
 import { Home } from './Home';
+import { NavigationMenu } from './NavigationMenu';
 
 function App() {
   /*const [users, setUsers] = useState([]);
@@ -65,31 +67,7 @@ function App() {
           <Add />
         </Route>
       </Switch>
-
-      {/* <div className="App">
-        <ul>
-          {users && users.map(({ id, name }) => <li key={id}>{name}</li>)}
-        </ul>
-        <button onClick={handleClick}>
-          Click me to meet Acceptance Criteria 3!
-        </button>
-      </div>
-      <div className="links">
-        <nav>
-          <ul className="linkslist">
-            <li>
-              <NavLink activeClassName="selected" to="/list">
-                List
-              </NavLink>
-            </li>
-            <li>
-              <NavLink activeClassName="selected" to="/add">
-                Add an Item
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      </div>*/}
+      <NavigationMenu />
     </Router>
   );
 }
