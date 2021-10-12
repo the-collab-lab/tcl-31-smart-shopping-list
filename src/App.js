@@ -17,9 +17,10 @@ import {
 } from 'react-router-dom';
 import { List } from './List';
 import { Add } from './Add';
+import { Home } from './Home';
 
 function App() {
-  const [users, setUsers] = useState([]);
+  /*const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -48,12 +49,15 @@ function App() {
       country: 'USA',
     });
   };
-
+*/
   return (
     <Router>
       {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
       <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route path="/list">
           <List />
         </Route>
@@ -62,7 +66,7 @@ function App() {
         </Route>
       </Switch>
 
-      <div className="App">
+      {/* <div className="App">
         <ul>
           {users && users.map(({ id, name }) => <li key={id}>{name}</li>)}
         </ul>
@@ -70,7 +74,6 @@ function App() {
           Click me to meet Acceptance Criteria 3!
         </button>
       </div>
-
       <div className="links">
         <nav>
           <ul className="linkslist">
@@ -86,7 +89,7 @@ function App() {
             </li>
           </ul>
         </nav>
-      </div>
+      </div>*/}
     </Router>
   );
 }
