@@ -1,25 +1,30 @@
 import React from 'react';
 import { getToken, words } from '@the-collab-lab/shopping-list-utils';
-import { useHistory } from 'react-router-dom';
-
-const userToken = localStorage.getItem('userToken');
-console.log(userToken);
+import { useHistory, Redirect } from 'react-router-dom';
 
 export function Home() {
   const history = useHistory();
+  let token;
+  token = localStorage.getItem('token');
+  console.log(token);
+
   function createToken() {
-    //-- create a token
-    const userToken = localStorage.setItem('userToken', getToken());
-    history.push('/list');
-    //-- store the token in localStorage
+    //-- create a token and store the token in localStorage
+    token = localStorage.setItem('token', getToken());
     //-- redirect user to the "list" view
+    history.push('/list');
   }
 
   return (
-    <div>
-      <button className="add" onClick={createToken}>
-        Create a new token
-      </button>
-    </div>
+    // Here validate if token exist
+    token ? (
+      <Redirect to="/list" />
+    ) : (
+      <div>
+        <button className="add" onClick={createToken}>
+          Create a new token
+        </button>
+      </div>
+    )
   );
 }
