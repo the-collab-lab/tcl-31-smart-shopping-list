@@ -20,10 +20,20 @@ export function Home() {
     token ? (
       <Redirect to="/list" />
     ) : (
-      <div>
-        <button className="add" onClick={createToken}>
+      <div className="WelcomeHome">
+        <h1>Welcome to your Smart Shopping list!</h1>
+        <button className="homeButton" onClick={createToken}>
           Create a new token
         </button>
+        <p>- or - </p>
+        <p>Join and existing shopping list by entering a three word token</p>
+        <h4>Share token</h4>
+        <input
+          className="inputHome"
+          type="text"
+          placeholder="three words token"
+        />
+        <button className="homeButton">Join an existing list</button>
       </div>
     )
   );
