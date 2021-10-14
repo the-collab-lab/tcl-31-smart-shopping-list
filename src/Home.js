@@ -1,5 +1,5 @@
 import React from 'react';
-import { getToken, words } from '@the-collab-lab/shopping-list-utils';
+import { getToken } from '@the-collab-lab/shopping-list-utils';
 import { useHistory, Redirect } from 'react-router-dom';
 
 export function Home() {
