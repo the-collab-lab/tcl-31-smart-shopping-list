@@ -1,14 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { db } from './lib/firebase.js';
+import React from 'react';
 import './App.css';
-import {
-  collection,
-  getDocs,
-  query,
-  onSnapshot,
-  doc,
-  setDoc,
-} from '@firebase/firestore';
 import {
   BrowserRouter as Router,
   NavLink,
@@ -19,16 +10,6 @@ import { List } from './List';
 import { Add } from './Add';
 
 function App() {
-  const [users, setUsers] = useState([]);
-
-  const handleClick = async () => {
-    await setDoc(doc(db, 'cities', 'LA'), {
-      name: 'Los Angeles',
-      state: 'CA',
-      country: 'USA',
-    });
-  };
-
   return (
     <Router>
       {/* A <Switch> looks through its children <Route>s and
