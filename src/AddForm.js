@@ -9,7 +9,7 @@ import {
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 
-const token = 'plushy cuny idiom';
+const userToken = 'plushy cuny idiom';
 
 function AddForm() {
   const [item, setItem] = useState('');
@@ -21,7 +21,7 @@ function AddForm() {
       name: item,
       days,
       lastPurchasedDate: null,
-      token,
+      userToken,
     });
   }
 
