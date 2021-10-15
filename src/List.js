@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavigationMenu } from './NavigationMenu';
 
 export function List() {
   return (
@@ -7,6 +8,7 @@ export function List() {
         <li>First Item</li>
         <li>Second Item</li>
       </ul>
+      <NavigationMenu />
     </div>
   );
 }
