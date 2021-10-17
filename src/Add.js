@@ -1,10 +1,12 @@
 import React from 'react';
+import AddForm from './AddForm';
 import { NavigationMenu } from './NavigationMenu';
+
 
 export function Add() {
   return (
     <div>
-      <button className="add">Create a new item</button>
+      <AddForm />
       <NavigationMenu />
     </div>
   );
