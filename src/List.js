@@ -8,6 +8,7 @@ import {
   setDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
+import { NavigationMenu } from './NavigationMenu';
 
 export function List() {
   const [items, setItems] = useState([]);
@@ -37,6 +38,7 @@ export function List() {
       <ul className="list">
         {items && items.map((item) => <li key={item.id}>{item.name}</li>)}
       </ul>
+      <NavigationMenu />
     </div>
   );
 }
