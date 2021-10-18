@@ -51,3 +51,8 @@
 .inputHome {
   font-size: 30px;
 }
+
+.validation {
+  font-size: 20px;
+  color: red;
+}
