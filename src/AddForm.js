@@ -36,7 +36,6 @@ function AddForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(shoppingList);
     if (
       shoppingList
         .map((i) => i.name.toUpperCase())
