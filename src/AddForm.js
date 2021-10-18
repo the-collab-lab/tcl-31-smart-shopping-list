@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   collection,
   getDocs,
@@ -6,6 +6,7 @@ import {
   onSnapshot,
   doc,
   addDoc,
+  where,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 
@@ -14,6 +15,23 @@ const userToken = 'plushy cuny idiom';
 function AddForm() {
   const [item, setItem] = useState('');
   const [days, setDays] = useState('7');
+  const [shoppingList, setShoppingList] = useState([]);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, 'shopping-list'),
+      where('userToken', '==', userToken),
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+      setShoppingList(items);
+    });
+    return unsubscribe;
+  }, []);
+  localStorage(shoppingList);
 
   async function handleSubmit(e) {
     e.preventDefault();
