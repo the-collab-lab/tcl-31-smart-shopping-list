@@ -5,8 +5,8 @@ import {
   query,
   onSnapshot,
   doc,
-  addDoc,
   where,
+  addDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 
@@ -16,6 +16,7 @@ function AddForm() {
   const [item, setItem] = useState('');
   const [days, setDays] = useState('7');
   const [shoppingList, setShoppingList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const q = query(
@@ -29,12 +30,31 @@ function AddForm() {
       });
       setShoppingList(items);
     });
+
     return unsubscribe;
   }, []);
-  localStorage(shoppingList);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(shoppingList);
+    if (
+      shoppingList
+        .map((i) => i.name.toUpperCase())
+        .includes(
+          item.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ''),
+        )
+    ) {
+      setErrorMessage("That item's already on your list, try a new one!");
+      return;
+    }
+
+    if (item === '') {
+      setErrorMessage('The input field is still empty, please add an item!');
+      return;
+    }
+
+    setErrorMessage('');
+
     await addDoc(collection(db, 'shopping-list'), {
       name: item,
       days,
@@ -80,6 +100,9 @@ function AddForm() {
         <label htmlFor="not-soon">Not Soon</label>
       </div>
       <button type="submit">Add Item</button>
+      {errorMessage !== '' && (
+        <div className="error-message">{errorMessage}</div>
+      )}
     </form>
   );
 }
