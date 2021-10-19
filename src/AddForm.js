@@ -10,7 +10,8 @@ import {
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 
-const userToken = 'plushy cuny idiom';
+let userToken;
+userToken = localStorage.getItem('token');
 
 function AddForm() {
   const [item, setItem] = useState('');
