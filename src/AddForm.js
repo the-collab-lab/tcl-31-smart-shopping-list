@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
   collection,
-  getDocs,
   query,
   onSnapshot,
-  doc,
   where,
   addDoc,
 } from '@firebase/firestore';
@@ -43,10 +41,10 @@ function AddForm() {
     e.preventDefault();
     if (
       shoppingList
-        .map((i) => i.name.toUpperCase())
-        .includes(
-          item.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ''),
+        .map((i) =>
+          i.name.toUpperCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ''),
         )
+        .includes(item.toUpperCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ''))
     ) {
       setErrorMessage("That item's already on your list, try a new one!");
       return;
