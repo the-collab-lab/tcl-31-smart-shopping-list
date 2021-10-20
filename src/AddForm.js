@@ -19,6 +19,10 @@ function AddForm() {
   const [shoppingList, setShoppingList] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const handleChange = ({ target: { value } }) => {
+    setDays(value);
+  };
+
   useEffect(() => {
     const q = query(
       collection(db, 'shopping-list'),
@@ -73,13 +77,14 @@ function AddForm() {
           name="item-name"
         />
       </label>
-      <div onChange={(e) => setDays(e.target.value)}>
+      <div>
         <input
           type="radio"
           id="soon"
           name="days"
           value="7"
           checked={days === '7'}
+          onChange={handleChange}
         />
         <label htmlFor="soon">Soon</label>
         <input
@@ -88,6 +93,7 @@ function AddForm() {
           name="days"
           value="14"
           checked={days === '14'}
+          onChange={handleChange}
         />
         <label htmlFor="kind-of-soon">Kind of Soon</label>
         <input
@@ -96,6 +102,7 @@ function AddForm() {
           name="days"
           value="30"
           checked={days === '30'}
+          onChange={handleChange}
         />
         <label htmlFor="not-soon">Not Soon</label>
       </div>
