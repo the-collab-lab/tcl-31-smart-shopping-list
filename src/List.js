@@ -6,6 +6,7 @@ import {
   onSnapshot,
   doc,
   setDoc,
+  where,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { NavigationMenu } from './NavigationMenu';
@@ -18,7 +19,7 @@ export function List() {
   useEffect(() => {
     const fetchItems = async () => {
       const response = collection(db, 'shopping-list');
-      const itemList = query(response);
+      const itemList = query(response, where('userToken', '==', token));
 
       const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
         const items = querySnapshot.docs.reduce((acc, doc) => {
@@ -33,20 +34,13 @@ export function List() {
     };
 
     fetchItems();
+    return fetchItems;
   }, []);
-
-  console.log(
-    'filtered items',
-    items.filter((item) => item.userToken === token),
-  );
 
   return (
     <div>
       <ul className="list">
-        {items &&
-          items
-            .filter((item) => item.userToken === token)
-            .map((item) => <li key={item.id}>{item.name}</li>)}
+        {items && items.map((item) => <li key={item.id}>{item.name}</li>)}
       </ul>
       <NavigationMenu />
     </div>
