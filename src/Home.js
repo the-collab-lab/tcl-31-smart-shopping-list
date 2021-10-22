@@ -1,6 +1,7 @@
 import React from 'react';
 import { getToken } from '@the-collab-lab/shopping-list-utils';
 import { useHistory, Redirect } from 'react-router-dom';
+import TokenForm from './TokenForm';
 
 export function Home() {
   const history = useHistory();
@@ -28,12 +29,7 @@ export function Home() {
         <p>- or - </p>
         <p>Join and existing shopping list by entering a three word token</p>
         <h4>Share token</h4>
-        <input
-          className="inputHome"
-          type="text"
-          placeholder="three words token"
-        />
-        <button className="homeButton">Join an existing list</button>
+        <TokenForm />
       </div>
     )
   );

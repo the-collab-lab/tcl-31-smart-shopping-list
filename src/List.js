@@ -6,6 +6,7 @@ import {
   onSnapshot,
   doc,
   setDoc,
+  where,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { NavigationMenu } from './NavigationMenu';
@@ -13,16 +14,18 @@ import { NavigationMenu } from './NavigationMenu';
 export function List() {
   const [items, setItems] = useState([]);
 
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
     const fetchItems = async () => {
       const response = collection(db, 'shopping-list');
-      const itemList = query(response);
+      const itemList = query(response, where('userToken', '==', token));
 
       const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
         const items = querySnapshot.docs.reduce((acc, doc) => {
-          const { name } = doc.data();
+          const { name, userToken } = doc.data();
           const id = doc.id;
-          return [...acc, { id, name }];
+          return [...acc, { id, name, userToken }];
         }, []);
 
         console.log(items);
@@ -31,6 +34,7 @@ export function List() {
     };
 
     fetchItems();
+    return fetchItems;
   }, []);
 
   return (
