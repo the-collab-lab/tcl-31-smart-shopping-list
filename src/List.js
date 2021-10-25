@@ -59,6 +59,7 @@ export function List() {
         <Link to={`/add`}>
           <button>Add item</button>
         </Link>
+        <NavigationMenu />
       </>
     );
   }
