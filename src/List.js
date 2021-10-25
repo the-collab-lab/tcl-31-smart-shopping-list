@@ -36,7 +36,7 @@ export function List() {
 
     fetchItems();
     return fetchItems;
-  }, []);
+  }, [token]);
 
   if (items.length) {
     return (
