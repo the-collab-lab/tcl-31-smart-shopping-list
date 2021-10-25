@@ -9,6 +9,7 @@ import {
   where,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
+import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 
 export function List() {
@@ -37,12 +38,28 @@ export function List() {
     return fetchItems;
   }, []);
 
-  return (
-    <div>
-      <ul className="list">
-        {items && items.map((item) => <li key={item.id}>{item.name}</li>)}
-      </ul>
-      <NavigationMenu />
-    </div>
-  );
+  if (items.length) {
+    return (
+      <div>
+        <ul className="list">
+          {items.map((item) => (
+            <li key={item.id}>{item.name}</li>
+          ))}
+        </ul>
+        <NavigationMenu />
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <p>
+          Welcome, friend! Your list is currently empty. Click below to add a
+          new item!
+        </p>
+        <Link to={`/add`}>
+          <button>Add item</button>
+        </Link>
+      </>
+    );
+  }
 }
