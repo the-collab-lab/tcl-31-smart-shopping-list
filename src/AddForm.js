@@ -9,7 +9,6 @@ import {
 import { db } from './lib/firebase.js';
 
 let userToken;
-userToken = localStorage.getItem('token');
 
 function AddForm() {
   const [item, setItem] = useState('');
@@ -22,6 +21,8 @@ function AddForm() {
   };
 
   useEffect(() => {
+    userToken = localStorage.getItem('token');
+
     const q = query(
       collection(db, 'shopping-list'),
       where('userToken', '==', userToken),
