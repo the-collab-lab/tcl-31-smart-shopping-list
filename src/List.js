@@ -15,10 +15,12 @@ import { NavigationMenu } from './NavigationMenu';
 export function List() {
   const [items, setItems] = useState([]);
 
-  const token = localStorage.getItem('token');
-
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     const fetchItems = async () => {
+      if (!token) return;
+
       const response = collection(db, 'shopping-list');
       const itemList = query(response, where('userToken', '==', token));
 
@@ -36,7 +38,7 @@ export function List() {
 
     fetchItems();
     return fetchItems;
-  }, [token]);
+  }, []);
 
   if (items.length) {
     return (
