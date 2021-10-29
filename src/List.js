@@ -71,6 +71,9 @@ export function List() {
     if (checked) {
       const itemRef = doc(db, 'shopping-list', id);
       setDoc(itemRef, { lastPurchasedDate: date.getTime() }, { merge: true });
+    } else {
+      const itemRef = doc(db, 'shopping-list', id);
+      setDoc(itemRef, { lastPurchasedDate: null }, { merge: true });
     }
   };
 
