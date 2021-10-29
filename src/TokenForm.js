@@ -25,9 +25,10 @@ const TokenForm = () => {
         console.log('tokens: ', tokens);
         setTokens(tokens);
       });
+      return unsubscribe;
     };
 
-    fetchItems();
+    return fetchItems;
   }, []);
 
   const handleChange = (e) => {

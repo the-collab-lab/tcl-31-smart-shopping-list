@@ -8,20 +8,20 @@ import {
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 
-let userToken;
-userToken = localStorage.getItem('token');
-
 function AddForm() {
   const [item, setItem] = useState('');
   const [days, setDays] = useState('7');
   const [shoppingList, setShoppingList] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const userToken = localStorage.getItem('token');
+
   const handleChange = ({ target: { value } }) => {
     setDays(value);
   };
 
   useEffect(() => {
+    if (!userToken) return;
     const q = query(
       collection(db, 'shopping-list'),
       where('userToken', '==', userToken),
