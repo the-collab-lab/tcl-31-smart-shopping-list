@@ -22,6 +22,7 @@ function AddForm() {
 
   useEffect(() => {
     if (!userToken) return;
+
     const q = query(
       collection(db, 'shopping-list'),
       where('userToken', '==', userToken),

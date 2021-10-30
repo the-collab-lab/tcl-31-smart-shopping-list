@@ -8,6 +8,7 @@ import {
   where,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
+import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 
@@ -20,7 +21,10 @@ export function List() {
   const ONE_MINUTE = 10 * 1000;
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     const fetchItems = async () => {
+
       const token = localStorage.getItem('token');
       if (!token) {
         history.push('/');
@@ -76,7 +80,7 @@ export function List() {
       setDoc(itemRef, { lastPurchasedDate: null }, { merge: true });
     }
   };
-
+if (items.length) {
   return (
     <div>
       <ul className="list">
@@ -107,4 +111,18 @@ export function List() {
       <NavigationMenu />
     </div>
   );
+  } else {
+    return (
+      <>
+        <p>
+          Welcome, friend! Your list is currently empty. Click below to add a
+          new item!
+        </p>
+        <Link to={`/add`}>
+          <button>Add item</button>
+        </Link>
+        <NavigationMenu />
+      </>
+    );
+  }
 }
