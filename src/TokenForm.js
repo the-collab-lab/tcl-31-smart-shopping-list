@@ -27,7 +27,7 @@ const TokenForm = () => {
       });
       return unsubscribe;
     };
-
+    fetchItems();
     return fetchItems;
   }, []);
 
