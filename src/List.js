@@ -8,6 +8,7 @@ import {
   where,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
@@ -24,7 +25,6 @@ export function List() {
     const token = localStorage.getItem('token');
 
     const fetchItems = async () => {
-
       const token = localStorage.getItem('token');
       if (!token) {
         history.push('/');
@@ -74,43 +74,53 @@ export function List() {
     const checked = event.target.checked;
     if (checked) {
       const itemRef = doc(db, 'shopping-list', id);
-      setDoc(itemRef, { lastPurchasedDate: date.getTime() }, { merge: true });
+      setDoc(
+        itemRef,
+        {
+          lastPurchasedDate: date.getTime(),
+          //pull the data from the database before running calculateEstimate
+          estimatedPurchaseDate: calculateEstimate(),
+          //increment by one
+          // totalPurchases: totalPurchases++
+        },
+        { merge: true },
+      );
     } else {
       const itemRef = doc(db, 'shopping-list', id);
       setDoc(itemRef, { lastPurchasedDate: null }, { merge: true });
     }
   };
-if (items.length) {
-  return (
-    <div>
-      <ul className="list">
-        {items &&
-          items
-            .filter((item) => !!item.id)
-            .map((item) => {
-              return (
-                <li key={item.id}>
-                  <input
-                    type="checkbox"
-                    id={`custon-checkbox-${item.id}`}
-                    name={item.name}
-                    value={item.name}
-                    checked={
-                      !!item.lastPurchasedDate &&
-                      new Date() - item.lastPurchasedDate < ONE_MINUTE
-                    }
-                    onChange={(e) => handleChange(item.id, e)}
-                  />
-                  <label htmlFor={`custom-checkbox-${item.id}`}>
-                    {item.name}
-                  </label>
-                </li>
-              );
-            })}
-      </ul>
-      <NavigationMenu />
-    </div>
-  );
+  if (items.length) {
+    return (
+      <div>
+        <ul className="list">
+          {items &&
+            items
+              .filter((item) => !!item.id)
+              .map((item) => {
+                return (
+                  <li key={item.id}>
+                    <input
+                      type="checkbox"
+                      id={`custon-checkbox-${item.id}`}
+                      name={item.name}
+                      value={item.name}
+                      checked={
+                        !!item.lastPurchasedDate &&
+                        new Date() - item.lastPurchasedDate < ONE_MINUTE
+                      }
+                      onChange={(e) => handleChange(item.id, e)}
+                    />
+                    <label htmlFor={`custom-checkbox-${item.id}`}>
+                      {item.name}
+                    </label>
+                  </li>
+                );
+              })}
+        </ul>
+        <NavigationMenu />
+      </div>
+    );
   } else {
     return (
       <>
