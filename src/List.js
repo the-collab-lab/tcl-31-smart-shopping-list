@@ -86,6 +86,7 @@ export function List() {
           placeholder="Start typing here..."
           onChange={(event) => setFilterItem(event.target.value)}
         ></input>
+        <button onClick={() => setFilterItem('')}>X</button>
         <ul className="list">
           {items &&
             items
