@@ -37,9 +37,25 @@ export function List() {
       const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
         const items = querySnapshot.docs.reduce(
           (acc, doc) => {
-            const { name, userToken, lastPurchasedDate } = doc.data();
+            const {
+              name,
+              userToken,
+              lastPurchasedDate,
+              estimatedPurchaseDate,
+              totalPurchases,
+            } = doc.data();
             const id = doc.id;
-            return [...acc, { id, name, userToken, lastPurchasedDate }];
+            return [
+              ...acc,
+              {
+                id,
+                name,
+                userToken,
+                lastPurchasedDate,
+                estimatedPurchaseDate,
+                totalPurchases,
+              },
+            ];
           },
           [token],
         );
@@ -71,6 +87,10 @@ export function List() {
 
   const handleChange = async (id, event) => {
     let date = new Date();
+    const item = items.find((element) => element.id === id);
+    const daysSinceLastTransaction = item.lastPurchasedDate
+      ? Math.round((new Date() - item.lastPurchasedDate) / 1000 / 60 / 60 / 24)
+      : 0;
     const checked = event.target.checked;
     if (checked) {
       const itemRef = doc(db, 'shopping-list', id);
@@ -78,16 +98,22 @@ export function List() {
         itemRef,
         {
           lastPurchasedDate: date.getTime(),
-          //pull the data from the database before running calculateEstimate
-          estimatedPurchaseDate: calculateEstimate(),
-          //increment by one
-          // totalPurchases: totalPurchases++
+          estimatedPurchaseDate: calculateEstimate(
+            item.estimatedPurchaseDate,
+            daysSinceLastTransaction,
+            item.totalPurchases,
+          ),
+          totalPurchases: item.totalPurchases + 1,
         },
         { merge: true },
       );
     } else {
       const itemRef = doc(db, 'shopping-list', id);
-      setDoc(itemRef, { lastPurchasedDate: null }, { merge: true });
+      setDoc(
+        itemRef,
+        { lastPurchasedDate: null, totalPurchases: item.totalPurchases - 1 },
+        { merge: true },
+      );
     }
   };
   if (items.length) {
