@@ -77,7 +77,7 @@ export function List() {
   };
   if (items.length) {
     return (
-      <div>
+      <>
         <label htmlFor="filterItems">Filter items:</label>
         <input
           name="filterItems"
@@ -116,7 +116,7 @@ export function List() {
               })}
         </ul>
         <NavigationMenu />
-      </div>
+      </>
     );
   } else {
     return (
