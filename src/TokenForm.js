@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { collection, query, onSnapshot } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
@@ -11,24 +11,23 @@ const TokenForm = () => {
   const [formError, setFormError] = useState(false);
   const [tokens, setTokens] = useState('');
 
+  const unsubscribeRef = useRef();
+
   useEffect(() => {
     const fetchItems = async () => {
       const response = collection(db, 'shopping-list');
       const itemList = query(response);
-
-      const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
+      unsubscribeRef.current = onSnapshot(itemList, (querySnapshot) => {
         const tokens = querySnapshot.docs.reduce((acc, doc) => {
           const { userToken } = doc.data();
           return [...acc, userToken];
         }, []);
-
         console.log('tokens: ', tokens);
         setTokens(tokens);
       });
-      return unsubscribe;
     };
     fetchItems();
-    return fetchItems;
+    return unsubscribeRef.current;
   }, []);
 
   const handleChange = (e) => {
