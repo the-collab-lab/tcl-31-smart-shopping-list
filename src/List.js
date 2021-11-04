@@ -17,13 +17,12 @@ export function List() {
   const [items, setItems] = useState([]);
   const [reRender, setReRender] = useState();
   const history = useHistory();
+  const [filterItem, setFilterItem] = useState('');
 
   //only change to 60*60*24  for 24 hours
   const ONE_MINUTE = 10 * 1000;
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
     const fetchItems = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -118,17 +117,29 @@ export function List() {
   };
   if (items.length) {
     return (
-      <div>
+      <>
+        <label htmlFor="filterItems">Filter items:</label>
+        <input
+          name="filterItems"
+          type="text"
+          value={filterItem}
+          placeholder="Start typing here..."
+          onChange={(event) => setFilterItem(event.target.value)}
+        ></input>
+        <button onClick={() => setFilterItem('')}>X</button>
         <ul className="list">
           {items &&
             items
               .filter((item) => !!item.id)
+              .filter((item) =>
+                item.name.toLowerCase().includes(filterItem.toLowerCase()),
+              )
               .map((item) => {
                 return (
                   <li key={item.id}>
                     <input
                       type="checkbox"
-                      id={`custon-checkbox-${item.id}`}
+                      id={`custom-checkbox-${item.id}`}
                       name={item.name}
                       value={item.name}
                       checked={
@@ -145,7 +156,7 @@ export function List() {
               })}
         </ul>
         <NavigationMenu />
-      </div>
+      </>
     );
   } else {
     return (
