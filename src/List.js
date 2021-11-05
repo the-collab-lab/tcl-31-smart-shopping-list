@@ -101,13 +101,6 @@ export function List() {
         },
         { merge: true },
       );
-    } else {
-      const itemRef = doc(db, 'shopping-list', id);
-      setDoc(
-        itemRef,
-        { lastPurchasedDate: null, totalPurchases: item.totalPurchases - 1 },
-        { merge: true },
-      );
     }
   };
   if (items.length) {
