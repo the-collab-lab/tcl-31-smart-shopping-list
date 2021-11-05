@@ -40,8 +40,9 @@ export function List() {
           name,
           userToken,
           lastPurchasedDate,
-          estimatedPurchaseDate,
+          previousEstimate,
           totalPurchases,
+          days,
         } = doc.data();
         const id = doc.id;
         return {
@@ -49,8 +50,9 @@ export function List() {
           name,
           userToken,
           lastPurchasedDate,
-          estimatedPurchaseDate,
+          previousEstimate,
           totalPurchases,
+          days,
         };
       });
 
@@ -90,8 +92,8 @@ export function List() {
         itemRef,
         {
           lastPurchasedDate: date.getTime(),
-          estimatedPurchaseDate: calculateEstimate(
-            item.estimatedPurchaseDate,
+          previousEstimate: calculateEstimate(
+            item.previousEstimate || parseInt(item.days),
             daysSinceLastTransaction,
             item.totalPurchases,
           ),
