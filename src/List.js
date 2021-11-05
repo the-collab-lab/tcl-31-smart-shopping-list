@@ -118,18 +118,17 @@ export function List() {
         <NavigationMenu />
       </>
     );
-  } else {
-    return (
-      <>
-        <p>
-          Welcome, friend! Your list is currently empty. Click below to add a
-          new item!
-        </p>
-        <Link to={`/add`}>
-          <button>Add item</button>
-        </Link>
-        <NavigationMenu />
-      </>
-    );
   }
+  return (
+    <>
+      <p>
+        Welcome, friend! Your list is currently empty. Click below to add a new
+        item!
+      </p>
+      <Link to={`/add`}>
+        <button>Add item</button>
+      </Link>
+      <NavigationMenu />
+    </>
+  );
 }
