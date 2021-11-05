@@ -13,6 +13,8 @@ import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 
+const convertToDays = (num) => num / 1000 / 60 / 60 / 24;
+
 export function List() {
   const [items, setItems] = useState([]);
   const [reRender, setReRender] = useState();
@@ -23,47 +25,38 @@ export function List() {
   const ONE_MINUTE = 10 * 1000;
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        history.push('/');
-        return;
-      }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      history.push('/');
+      return;
+    }
 
-      const response = collection(db, 'shopping-list');
-      const itemList = query(response, where('userToken', '==', token));
+    const response = collection(db, 'shopping-list');
+    const itemList = query(response, where('userToken', '==', token));
 
-      const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
-        const items = querySnapshot.docs.reduce(
-          (acc, doc) => {
-            const {
-              name,
-              userToken,
-              lastPurchasedDate,
-              estimatedPurchaseDate,
-              totalPurchases,
-            } = doc.data();
-            const id = doc.id;
-            return [
-              ...acc,
-              {
-                id,
-                name,
-                userToken,
-                lastPurchasedDate,
-                estimatedPurchaseDate,
-                totalPurchases,
-              },
-            ];
-          },
-          [token],
-        );
-
-        setItems(items);
+    const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
+      const items = querySnapshot.docs.map((doc) => {
+        const {
+          name,
+          userToken,
+          lastPurchasedDate,
+          estimatedPurchaseDate,
+          totalPurchases,
+        } = doc.data();
+        const id = doc.id;
+        return {
+          id,
+          name,
+          userToken,
+          lastPurchasedDate,
+          estimatedPurchaseDate,
+          totalPurchases,
+        };
       });
-      return unsubscribe;
-    };
-    return fetchItems();
+
+      setItems(items);
+    });
+    return unsubscribe;
   }, []);
 
   useEffect(() => {
@@ -87,8 +80,8 @@ export function List() {
   const handleChange = async (id, event) => {
     let date = new Date();
     const item = items.find((element) => element.id === id);
-    const daysSinceLastTransaction = item.lastPurchasedDate
-      ? Math.round((new Date() - item.lastPurchasedDate) / 1000 / 60 / 60 / 24)
+    const daysSinceLastTransaction = item?.lastPurchasedDate
+      ? convertToDays(Math.round(new Date() - item.lastPurchasedDate))
       : 0;
     const checked = event.target.checked;
     if (checked) {
