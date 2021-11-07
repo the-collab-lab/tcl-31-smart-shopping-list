@@ -6,6 +6,7 @@ import {
   setDoc,
   onSnapshot,
   where,
+  deleteDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
@@ -79,6 +80,13 @@ export function List() {
     setTimeout(() => setReRender({}), timeToMinDate);
   }, [reRender, items, ONE_MINUTE]);
 
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      await deleteDoc(doc(db, 'shopping-list', id));
+      setItems(items.filter((item) => item.id !== id));
+    }
+  };
+
   const handleChange = async (id, event) => {
     let date = new Date();
     const item = items.find((element) => element.id === id);
@@ -139,6 +147,9 @@ export function List() {
                     <label htmlFor={`custom-checkbox-${item.id}`}>
                       {item.name}
                     </label>
+                    <button onClick={() => handleDelete(item.id)}>
+                      Delete
+                    </button>
                   </li>
                 );
               })}
