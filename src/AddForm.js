@@ -62,6 +62,8 @@ function AddForm() {
       name: item,
       days,
       lastPurchasedDate: null,
+      previousEstimate: null,
+      totalPurchases: 0,
       userToken,
     });
   }

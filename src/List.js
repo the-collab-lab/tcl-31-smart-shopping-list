@@ -8,9 +8,12 @@ import {
   where,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
+
+const convertToDays = (num) => num / 1000 / 60 / 60 / 24;
 
 export function List() {
   const [items, setItems] = useState([]);
@@ -22,28 +25,40 @@ export function List() {
   const ONE_MINUTE = 10 * 1000;
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        history.push('/');
-        return;
-      }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      history.push('/');
+      return;
+    }
 
-      const response = collection(db, 'shopping-list');
-      const itemList = query(response, where('userToken', '==', token));
+    const response = collection(db, 'shopping-list');
+    const itemList = query(response, where('userToken', '==', token));
 
-      const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
-        const items = querySnapshot.docs.reduce((acc, doc) => {
-          const { name, userToken, lastPurchasedDate } = doc.data();
-          const id = doc.id;
-          return [...acc, { id, name, userToken, lastPurchasedDate }];
-        }, []);
-
-        setItems(items);
+    const unsubscribe = onSnapshot(itemList, (querySnapshot) => {
+      const items = querySnapshot.docs.map((doc) => {
+        const {
+          name,
+          userToken,
+          lastPurchasedDate,
+          previousEstimate,
+          totalPurchases,
+          days,
+        } = doc.data();
+        const id = doc.id;
+        return {
+          id,
+          name,
+          userToken,
+          lastPurchasedDate,
+          previousEstimate,
+          totalPurchases,
+          days,
+        };
       });
-      return unsubscribe;
-    };
-    return fetchItems();
+
+      setItems(items);
+    });
+    return unsubscribe;
   }, []);
 
   useEffect(() => {
@@ -66,13 +81,26 @@ export function List() {
 
   const handleChange = async (id, event) => {
     let date = new Date();
+    const item = items.find((element) => element.id === id);
+    const daysSinceLastTransaction = item?.lastPurchasedDate
+      ? convertToDays(Math.round(new Date() - item.lastPurchasedDate))
+      : 0;
     const checked = event.target.checked;
     if (checked) {
       const itemRef = doc(db, 'shopping-list', id);
-      setDoc(itemRef, { lastPurchasedDate: date.getTime() }, { merge: true });
-    } else {
-      const itemRef = doc(db, 'shopping-list', id);
-      setDoc(itemRef, { lastPurchasedDate: null }, { merge: true });
+      setDoc(
+        itemRef,
+        {
+          lastPurchasedDate: date.getTime(),
+          previousEstimate: calculateEstimate(
+            item.previousEstimate || parseInt(item.days),
+            daysSinceLastTransaction,
+            item.totalPurchases,
+          ),
+          totalPurchases: item.totalPurchases + 1,
+        },
+        { merge: true },
+      );
     }
   };
   if (items.length) {
