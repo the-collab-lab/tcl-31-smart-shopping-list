@@ -59,7 +59,7 @@ export function List() {
       setItems(items);
     });
     return unsubscribe;
-  }, []);
+  }, [history]);
 
   useEffect(() => {
     //search all dates that are more than "uncheck time" from now
@@ -77,7 +77,7 @@ export function List() {
     const timeToMinDate = new Date() - minDate + ONE_MINUTE;
     //re-render the page so the item unchecks when it should be unchecked
     setTimeout(() => setReRender({}), timeToMinDate);
-  }, [reRender, items]);
+  }, [reRender, items, ONE_MINUTE]);
 
   const handleChange = async (id, event) => {
     let date = new Date();
