@@ -42,6 +42,7 @@ export function List() {
           lastPurchasedDate,
           previousEstimate,
           totalPurchases,
+          creationTime,
           days,
         } = doc.data();
         const id = doc.id;
@@ -52,6 +53,7 @@ export function List() {
           lastPurchasedDate,
           previousEstimate,
           totalPurchases,
+          creationTime,
           days,
         };
       });

@@ -64,6 +64,7 @@ function AddForm() {
       lastPurchasedDate: null,
       previousEstimate: null,
       totalPurchases: 0,
+      creationTime: new Date().getTime(),
       userToken,
     });
   }
