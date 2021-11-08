@@ -96,7 +96,7 @@ export function List() {
     const item = items.find((element) => element.id === id);
     const daysSinceLastTransaction = item?.lastPurchasedDate
       ? convertToDays(Math.round(new Date() - item.lastPurchasedDate))
-      : 0;
+      : convertToDays(Math.round(new Date() - item.creationTime));
     const checked = event.target.checked;
     if (checked) {
       const itemRef = doc(db, 'shopping-list', id);
@@ -115,7 +115,16 @@ export function List() {
       );
     }
   };
+  const itemSortByDaysToNextPurchase = (a, b) => {
+    const difeA = a.previousEstimate - daysSinceLastPurchaseOrCreationTime(a);
+    const difeB = b.previousEstimate - daysSinceLastPurchaseOrCreationTime(b);
 
+    if (difeA < difeB) {
+      return -1;
+    } else if (difeA > difeB) {
+      return 1;
+    }
+  };
   const itemSort = (a, b) => {
     const inactiveA = itemIsInactive(a);
     const inactiveB = itemIsInactive(b);
@@ -125,6 +134,7 @@ export function List() {
     } else if (inactiveB && !inactiveA) {
       return 1;
     }
+    return itemSortByDaysToNextPurchase;
   };
 
   if (items.length) {
