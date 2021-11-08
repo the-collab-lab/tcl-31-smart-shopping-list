@@ -10,14 +10,14 @@ import { db } from './lib/firebase.js';
 
 function AddForm() {
   const [item, setItem] = useState('');
-  const [days, setDays] = useState('7');
+  const [days, setDays] = useState(7);
   const [shoppingList, setShoppingList] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   const userToken = localStorage.getItem('token');
 
   const handleChange = ({ target: { value } }) => {
-    setDays(value);
+    setDays(parseInt(value));
   };
 
   useEffect(() => {
@@ -84,7 +84,7 @@ function AddForm() {
           id="soon"
           name="days"
           value="7"
-          checked={days === '7'}
+          checked={days === 7}
           onChange={handleChange}
         />
         <label htmlFor="soon">Soon</label>
@@ -93,7 +93,7 @@ function AddForm() {
           id="kind-of-soon"
           name="days"
           value="14"
-          checked={days === '14'}
+          checked={days === 14}
           onChange={handleChange}
         />
         <label htmlFor="kind-of-soon">Kind of Soon</label>
@@ -102,7 +102,7 @@ function AddForm() {
           id="not-soon"
           name="days"
           value="30"
-          checked={days === '30'}
+          checked={days === 30}
           onChange={handleChange}
         />
         <label htmlFor="not-soon">Not Soon</label>
