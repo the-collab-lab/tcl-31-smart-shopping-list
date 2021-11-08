@@ -14,6 +14,16 @@ import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 
 const convertToDays = (num) => num / 1000 / 60 / 60 / 24;
+//we don't no why when remove the console log the function is not working as we expect
+const daysSinceLastPurchaseOrCreationTime = (item) =>
+  console.log(
+    convertToDays(Math.round(new Date() - item.lastPurchasedDate)) ||
+      item.creationTime,
+  );
+
+const itemIsInactive = (item) =>
+  daysSinceLastPurchaseOrCreationTime(item) > 2 * item.previousEstimate ||
+  item.totalPurchases == 1;
 
 export function List() {
   const [items, setItems] = useState([]);
@@ -95,7 +105,7 @@ export function List() {
         {
           lastPurchasedDate: date.getTime(),
           previousEstimate: calculateEstimate(
-            item.previousEstimate || parseInt(item.days),
+            item.previousEstimate,
             daysSinceLastTransaction,
             item.totalPurchases,
           ),
@@ -105,6 +115,18 @@ export function List() {
       );
     }
   };
+
+  const itemSort = (a, b) => {
+    const inactiveA = itemIsInactive(a);
+    const inactiveB = itemIsInactive(b);
+
+    if (inactiveA && !inactiveB) {
+      return -1;
+    } else if (inactiveB && !inactiveA) {
+      return 1;
+    }
+  };
+
   if (items.length) {
     return (
       <>
@@ -124,6 +146,7 @@ export function List() {
               .filter((item) =>
                 item.name.toLowerCase().includes(filterItem.toLowerCase()),
               )
+              .sort(itemSort)
               .map((item) => {
                 return (
                   <li key={item.id}>
