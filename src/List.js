@@ -13,17 +13,14 @@ import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 
-const convertToDays = (num) => num / 1000 / 60 / 60 / 24;
-//we don't no why when remove the console log the function is not working as we expect
+const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
+
 const daysSinceLastPurchaseOrCreationTime = (item) =>
-  console.log(
-    convertToDays(Math.round(new Date() - item.lastPurchasedDate)) ||
-      item.creationTime,
-  );
+  convertToDays(new Date() - (item.lastPurchasedDate || item.creationTime));
 
 const itemIsInactive = (item) =>
   daysSinceLastPurchaseOrCreationTime(item) > 2 * item.previousEstimate ||
-  item.totalPurchases == 1;
+  item.totalPurchases === 1;
 
 export function List() {
   const [items, setItems] = useState([]);
@@ -73,6 +70,39 @@ export function List() {
     return unsubscribe;
   }, []);
 
+  const itemSortAlphabetically = (a, b) => a.name.localeCompare(b.name);
+
+  const itemSortByDaysToNextPurchase = (a, b) => {
+    const difeA = a.previousEstimate - daysSinceLastPurchaseOrCreationTime(a);
+    const difeB = b.previousEstimate - daysSinceLastPurchaseOrCreationTime(b);
+
+    if (difeA < difeB) {
+      console.log(`SortByDaysToNextPurchase: ${a.name} < ${b.name}`);
+      return -1;
+    } else if (difeA > difeB) {
+      console.log(`SortByDaysToNextPurchase: ${a.name} > ${b.name}`);
+      return 1;
+    }
+    console.log(`SortByDaysToNextPurchase: ${a.name} = ${b.name}`);
+    return itemSortAlphabetically(a, b);
+  };
+
+  const itemSort = (a, b) => {
+    console.log('a', a);
+    console.log('b', b);
+    const inactiveA = itemIsInactive(a);
+    const inactiveB = itemIsInactive(b);
+    console.log('inactiveA', inactiveA);
+    console.log('inactiveB', inactiveB);
+
+    if (inactiveA && !inactiveB) {
+      return 1;
+    } else if (inactiveB && !inactiveA) {
+      return -1;
+    }
+    return itemSortByDaysToNextPurchase(a, b);
+  };
+
   useEffect(() => {
     //search all dates that are more than "uncheck time" from now
     const allDates = items
@@ -91,6 +121,17 @@ export function List() {
     setTimeout(() => setReRender({}), timeToMinDate);
   }, [reRender, items]);
 
+  // For debugging sort issues
+  useEffect(() => {
+    items.map((item) =>
+      console.log({
+        name: item.name,
+        daysToNextPurchase:
+          item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item),
+      }),
+    );
+  }, [items]);
+
   const handleChange = async (id, event) => {
     let date = new Date();
     const item = items.find((element) => element.id === id);
@@ -104,37 +145,18 @@ export function List() {
         itemRef,
         {
           lastPurchasedDate: date.getTime(),
-          previousEstimate: calculateEstimate(
-            item.previousEstimate,
-            daysSinceLastTransaction,
-            item.totalPurchases,
+          previousEstimate: Math.round(
+            calculateEstimate(
+              item.previousEstimate,
+              daysSinceLastTransaction,
+              item.totalPurchases,
+            ),
           ),
           totalPurchases: item.totalPurchases + 1,
         },
         { merge: true },
       );
     }
-  };
-  const itemSortByDaysToNextPurchase = (a, b) => {
-    const difeA = a.previousEstimate - daysSinceLastPurchaseOrCreationTime(a);
-    const difeB = b.previousEstimate - daysSinceLastPurchaseOrCreationTime(b);
-
-    if (difeA < difeB) {
-      return -1;
-    } else if (difeA > difeB) {
-      return 1;
-    }
-  };
-  const itemSort = (a, b) => {
-    const inactiveA = itemIsInactive(a);
-    const inactiveB = itemIsInactive(b);
-
-    if (inactiveA && !inactiveB) {
-      return -1;
-    } else if (inactiveB && !inactiveA) {
-      return 1;
-    }
-    return itemSortByDaysToNextPurchase;
   };
 
   if (items.length) {
