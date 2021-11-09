@@ -131,17 +131,6 @@ export function List() {
     setTimeout(() => setReRender({}), timeToMinDate);
   }, [reRender, items]);
 
-  // For debugging sort issues
-  useEffect(() => {
-    items.map((item) =>
-      console.log({
-        name: item.name,
-        daysToNextPurchase:
-          item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item),
-      }),
-    );
-  }, [items]);
-
   const handleChange = async (id, event) => {
     let date = new Date();
     const item = items.find((element) => element.id === id);
@@ -169,52 +158,49 @@ export function List() {
     }
   };
 
-  if (items.length) {
-    return (
-      <>
-        <label htmlFor="filterItems">Filter items:</label>
-        <input
-          name="filterItems"
-          type="text"
-          value={filterItem}
-          placeholder="Start typing here..."
-          onChange={(event) => setFilterItem(event.target.value)}
-        ></input>
-        <button onClick={() => setFilterItem('')}>X</button>
-        <ul className="list">
-          {items &&
-            items
-              .filter((item) => !!item.id)
-              .filter((item) =>
-                item.name.toLowerCase().includes(filterItem.toLowerCase()),
-              )
-              .sort(itemSort)
-              .map((item) => {
-                return (
-                  <li key={item.id} className={itemState(item)}>
-                    <input
-                      type="checkbox"
-                      id={`custom-checkbox-${item.id}`}
-                      name={item.name}
-                      value={item.name}
-                      checked={
-                        !!item.lastPurchasedDate &&
-                        new Date() - item.lastPurchasedDate < ONE_MINUTE
-                      }
-                      onChange={(e) => handleChange(item.id, e)}
-                    />
-                    <label htmlFor={`custom-checkbox-${item.id}`}>
-                      {item.name}
-                    </label>
-                  </li>
-                );
-              })}
-        </ul>
-        <NavigationMenu />
-      </>
-    );
-  }
-  return (
+  return items.length ? (
+    <>
+      <label htmlFor="filterItems">Filter items:</label>
+      <input
+        name="filterItems"
+        type="text"
+        value={filterItem}
+        placeholder="Start typing here..."
+        onChange={(event) => setFilterItem(event.target.value)}
+      ></input>
+      <button onClick={() => setFilterItem('')}>X</button>
+      <ul className="list">
+        {items &&
+          items
+            .filter((item) => !!item.id)
+            .filter((item) =>
+              item.name.toLowerCase().includes(filterItem.toLowerCase()),
+            )
+            .sort(itemSort)
+            .map((item) => {
+              return (
+                <li key={item.id} className={itemState(item)}>
+                  <input
+                    type="checkbox"
+                    id={`custom-checkbox-${item.id}`}
+                    name={item.name}
+                    value={item.name}
+                    checked={
+                      !!item.lastPurchasedDate &&
+                      new Date() - item.lastPurchasedDate < ONE_MINUTE
+                    }
+                    onChange={(e) => handleChange(item.id, e)}
+                  />
+                  <label htmlFor={`custom-checkbox-${item.id}`}>
+                    {item.name}
+                  </label>
+                </li>
+              );
+            })}
+      </ul>
+      <NavigationMenu />
+    </>
+  ) : (
     <>
       <p>
         Welcome, friend! Your list is currently empty. Click below to add a new
