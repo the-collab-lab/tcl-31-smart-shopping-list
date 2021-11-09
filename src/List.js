@@ -22,6 +22,20 @@ const itemIsInactive = (item) =>
   daysSinceLastPurchaseOrCreationTime(item) > 2 * item.previousEstimate ||
   item.totalPurchases === 1;
 
+const itemState = (item) => {
+  const daysToBuy =
+    item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item);
+
+  if (itemIsInactive(item)) {
+    return 'inactive';
+  } else if (daysToBuy < 7) {
+    return 'soon';
+  } else if (daysToBuy >= 7 && daysToBuy <= 30) {
+    return 'kind-of-soon';
+  }
+  return 'not-soon';
+};
+
 export function List() {
   const [items, setItems] = useState([]);
   const [reRender, setReRender] = useState();
@@ -77,29 +91,25 @@ export function List() {
     const difeB = b.previousEstimate - daysSinceLastPurchaseOrCreationTime(b);
 
     if (difeA < difeB) {
-      console.log(`SortByDaysToNextPurchase: ${a.name} < ${b.name}`);
       return -1;
     } else if (difeA > difeB) {
-      console.log(`SortByDaysToNextPurchase: ${a.name} > ${b.name}`);
       return 1;
     }
-    console.log(`SortByDaysToNextPurchase: ${a.name} = ${b.name}`);
+    //if equal call the other sort
     return itemSortAlphabetically(a, b);
   };
 
   const itemSort = (a, b) => {
-    console.log('a', a);
-    console.log('b', b);
+    //sort for the inactive item with when there’s only 1 purchase in the database or the purchase is really out of date
     const inactiveA = itemIsInactive(a);
     const inactiveB = itemIsInactive(b);
-    console.log('inactiveA', inactiveA);
-    console.log('inactiveB', inactiveB);
 
     if (inactiveA && !inactiveB) {
       return 1;
     } else if (inactiveB && !inactiveA) {
       return -1;
     }
+    //if equal call the other sort
     return itemSortByDaysToNextPurchase(a, b);
   };
 
@@ -181,7 +191,7 @@ export function List() {
               .sort(itemSort)
               .map((item) => {
                 return (
-                  <li key={item.id}>
+                  <li key={item.id} className={itemState(item)}>
                     <input
                       type="checkbox"
                       id={`custom-checkbox-${item.id}`}
