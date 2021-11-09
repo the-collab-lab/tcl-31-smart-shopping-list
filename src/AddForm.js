@@ -36,7 +36,7 @@ function AddForm() {
     });
 
     return unsubscribe;
-  }, []);
+  }, [userToken]);
 
   async function handleSubmit(e) {
     e.preventDefault();

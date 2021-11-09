@@ -1,6 +1,5 @@
 // NOTE: import only the Firebase modules that you need in your app... except
 // for the second line, which makes both the linter and react-firebase happy
-import firebase from 'firebase/compat/app';
 import '@firebase/firestore';
 
 import { initializeApp } from 'firebase/app';
