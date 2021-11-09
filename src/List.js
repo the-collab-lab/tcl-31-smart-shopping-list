@@ -82,7 +82,7 @@ export function List() {
       setItems(items);
     });
     return unsubscribe;
-  }, []);
+  }, [history]);
 
   const itemSortAlphabetically = (a, b) => a.name.localeCompare(b.name);
 
@@ -129,7 +129,7 @@ export function List() {
     const timeToMinDate = new Date() - minDate + ONE_MINUTE;
     //re-render the page so the item unchecks when it should be unchecked
     setTimeout(() => setReRender({}), timeToMinDate);
-  }, [reRender, items]);
+  }, [reRender, items, ONE_MINUTE]);
 
   const handleChange = async (id, event) => {
     let date = new Date();
@@ -182,6 +182,7 @@ export function List() {
                 <li key={item.id} className={itemState(item)}>
                   <input
                     type="checkbox"
+                    aria-label={itemState(item)}
                     id={`custom-checkbox-${item.id}`}
                     name={item.name}
                     value={item.name}
