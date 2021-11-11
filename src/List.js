@@ -148,7 +148,7 @@ export function List() {
                     <label htmlFor={`custom-checkbox-${item.id}`}>
                       {item.name}
                     </label>
-                    <DeleteButton setItems={setItems} id={item.id} />
+                    <DeleteButton id={item.id} />
                   </li>
                 );
               })}
