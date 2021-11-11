@@ -13,6 +13,7 @@ import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
+import DeleteButton from './DeleteButton';
 
 const convertToDays = (num) => num / 1000 / 60 / 60 / 24;
 
@@ -147,9 +148,7 @@ export function List() {
                     <label htmlFor={`custom-checkbox-${item.id}`}>
                       {item.name}
                     </label>
-                    <button onClick={() => handleDelete(item.id)}>
-                      Delete
-                    </button>
+                    <DeleteButton setItems={setItems} id={item.id} />
                   </li>
                 );
               })}
