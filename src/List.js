@@ -22,7 +22,7 @@ const itemIsInactive = (item) =>
   daysSinceLastPurchaseOrCreationTime(item) > 2 * item.previousEstimate ||
   item.totalPurchases === 1;
 
-const itemState = (item) => {
+const getClassName = (item) => {
   const daysToBuy =
     item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item);
 
@@ -89,12 +89,12 @@ export function List() {
   const itemSortAlphabetically = (a, b) => a.name.localeCompare(b.name);
 
   const itemSortByDaysToNextPurchase = (a, b) => {
-    const difeA = a.previousEstimate - daysSinceLastPurchaseOrCreationTime(a);
-    const difeB = b.previousEstimate - daysSinceLastPurchaseOrCreationTime(b);
+    const itemA = a.previousEstimate - daysSinceLastPurchaseOrCreationTime(a);
+    const itemB = b.previousEstimate - daysSinceLastPurchaseOrCreationTime(b);
 
-    if (difeA < difeB) {
+    if (itemA < itemB) {
       return -1;
-    } else if (difeA > difeB) {
+    } else if (itemA > itemB) {
       return 1;
     }
     //if equal call the other sort
@@ -181,10 +181,10 @@ export function List() {
             .sort(itemSort)
             .map((item) => {
               return (
-                <li key={item.id} className={itemState(item)}>
+                <li key={item.id} className={getClassName(item)}>
                   <input
                     type="checkbox"
-                    aria-label={itemState(item)}
+                    aria-label={getClassName(item)}
                     id={`custom-checkbox-${item.id}`}
                     name={item.name}
                     value={item.name}
