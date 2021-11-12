@@ -28,9 +28,11 @@ const itemState = (item) => {
 
   if (itemIsInactive(item)) {
     return 'inactive';
-  } else if (daysToBuy <= 7) {
+  }
+  if (daysToBuy <= 7) {
     return 'soon';
-  } else if (daysToBuy > 7 && daysToBuy < 30) {
+  }
+  if (daysToBuy > 7 && daysToBuy < 30) {
     return 'kind-of-soon';
   }
   return 'not-soon';
