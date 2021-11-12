@@ -174,7 +174,6 @@ export function List() {
       <ul className="list">
         {items &&
           items
-            .filter((item) => !!item.id)
             .filter((item) =>
               item.name.toLowerCase().includes(filterItem.toLowerCase()),
             )
