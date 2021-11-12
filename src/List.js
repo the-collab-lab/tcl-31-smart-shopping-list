@@ -6,12 +6,14 @@ import {
   setDoc,
   onSnapshot,
   where,
+  deleteDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
+import DeleteButton from './DeleteButton';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -45,7 +47,7 @@ export function List() {
   const [filterItem, setFilterItem] = useState('');
 
   //only change to 60*60*24  for 24 hours
-  const ONE_MINUTE = 10 * 1000;
+  const ONE_DAY = 60 * 60 * 24 * 1000;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -119,7 +121,7 @@ export function List() {
     //search all dates that are more than "uncheck time" from now
     const allDates = items
       .map((i) => i.lastPurchasedDate)
-      .filter((d) => d !== null && new Date() - d < ONE_MINUTE);
+      .filter((d) => d !== null && new Date() - d < ONE_DAY);
     // if none, return
     if (allDates.length === 0) {
       return;
@@ -128,10 +130,17 @@ export function List() {
     // find the next date to expire in allDates
     const minDate = Math.min(...allDates);
     //find how long it will be before it expires
-    const timeToMinDate = new Date() - minDate + ONE_MINUTE;
+    const timeToMinDate = new Date() - minDate + ONE_DAY;
     //re-render the page so the item unchecks when it should be unchecked
     setTimeout(() => setReRender({}), timeToMinDate);
-  }, [reRender, items, ONE_MINUTE]);
+  }, [reRender, items, ONE_DAY]);
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      await deleteDoc(doc(db, 'shopping-list', id));
+      setItems(items.filter((item) => item.id !== id));
+    }
+  };
 
   const handleChange = async (id, event) => {
     let date = new Date();
@@ -189,13 +198,14 @@ export function List() {
                     value={item.name}
                     checked={
                       !!item.lastPurchasedDate &&
-                      new Date() - item.lastPurchasedDate < ONE_MINUTE
+                      new Date() - item.lastPurchasedDate < ONE_DAY
                     }
                     onChange={(e) => handleChange(item.id, e)}
                   />
                   <label htmlFor={`custom-checkbox-${item.id}`}>
                     {item.name}
                   </label>
+                  <DeleteButton id={item.id} />                  
                 </li>
               );
             })}
