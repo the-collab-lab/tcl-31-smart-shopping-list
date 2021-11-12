@@ -56,3 +56,19 @@
   font-size: 20px;
   color: red;
 }
+
+.inactive {
+  background-color: darkgray;
+}
+
+.soon {
+  background: lightgreen;
+}
+
+.kind-of-soon {
+  background: coral;
+}
+
+.not-soon {
+  background: indianred;
+}

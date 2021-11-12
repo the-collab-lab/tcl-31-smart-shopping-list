@@ -15,7 +15,30 @@ import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 
-const convertToDays = (num) => num / 1000 / 60 / 60 / 24;
+const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
+
+const daysSinceLastPurchaseOrCreationTime = (item) =>
+  convertToDays(new Date() - (item.lastPurchasedDate || item.creationTime));
+
+const itemIsInactive = (item) =>
+  daysSinceLastPurchaseOrCreationTime(item) > 2 * item.previousEstimate ||
+  item.totalPurchases === 1;
+
+const getClassName = (item) => {
+  const daysToBuy =
+    item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item);
+
+  if (itemIsInactive(item)) {
+    return 'inactive';
+  }
+  if (daysToBuy <= 7) {
+    return 'soon';
+  }
+  if (daysToBuy > 7 && daysToBuy < 30) {
+    return 'kind-of-soon';
+  }
+  return 'not-soon';
+};
 
 export function List() {
   const [items, setItems] = useState([]);
@@ -44,6 +67,7 @@ export function List() {
           lastPurchasedDate,
           previousEstimate,
           totalPurchases,
+          creationTime,
           days,
         } = doc.data();
         const id = doc.id;
@@ -54,6 +78,7 @@ export function List() {
           lastPurchasedDate,
           previousEstimate,
           totalPurchases,
+          creationTime,
           days,
         };
       });
@@ -62,6 +87,35 @@ export function List() {
     });
     return unsubscribe;
   }, [history]);
+
+  const itemSortAlphabetically = (a, b) => a.name.localeCompare(b.name);
+
+  const itemSortByDaysToNextPurchase = (a, b) => {
+    const itemA = a.previousEstimate - daysSinceLastPurchaseOrCreationTime(a);
+    const itemB = b.previousEstimate - daysSinceLastPurchaseOrCreationTime(b);
+
+    if (itemA < itemB) {
+      return -1;
+    } else if (itemA > itemB) {
+      return 1;
+    }
+    //if equal call the other sort
+    return itemSortAlphabetically(a, b);
+  };
+
+  const itemSort = (a, b) => {
+    //sort for the inactive item with when there’s only 1 purchase in the database or the purchase is really out of date
+    const inactiveA = itemIsInactive(a);
+    const inactiveB = itemIsInactive(b);
+
+    if (inactiveA && !inactiveB) {
+      return 1;
+    } else if (inactiveB && !inactiveA) {
+      return -1;
+    }
+    //if equal call the other sort
+    return itemSortByDaysToNextPurchase(a, b);
+  };
 
   useEffect(() => {
     //search all dates that are more than "uncheck time" from now
@@ -93,7 +147,7 @@ export function List() {
     const item = items.find((element) => element.id === id);
     const daysSinceLastTransaction = item?.lastPurchasedDate
       ? convertToDays(Math.round(new Date() - item.lastPurchasedDate))
-      : 0;
+      : convertToDays(Math.round(new Date() - item.creationTime));
     const checked = event.target.checked;
     if (checked) {
       const itemRef = doc(db, 'shopping-list', id);
@@ -101,10 +155,12 @@ export function List() {
         itemRef,
         {
           lastPurchasedDate: date.getTime(),
-          previousEstimate: calculateEstimate(
-            item.previousEstimate || parseInt(item.days),
-            daysSinceLastTransaction,
-            item.totalPurchases,
+          previousEstimate: Math.round(
+            calculateEstimate(
+              item.previousEstimate,
+              daysSinceLastTransaction,
+              item.totalPurchases,
+            ),
           ),
           totalPurchases: item.totalPurchases + 1,
         },
@@ -112,52 +168,51 @@ export function List() {
       );
     }
   };
-  if (items.length) {
-    return (
-      <>
-        <label htmlFor="filterItems">Filter items:</label>
-        <input
-          name="filterItems"
-          type="text"
-          value={filterItem}
-          placeholder="Start typing here..."
-          onChange={(event) => setFilterItem(event.target.value)}
-        ></input>
-        <button onClick={() => setFilterItem('')}>X</button>
-        <ul className="list">
-          {items &&
-            items
-              .filter((item) => !!item.id)
-              .filter((item) =>
-                item.name.toLowerCase().includes(filterItem.toLowerCase()),
-              )
-              .map((item) => {
-                return (
-                  <li key={item.id}>
-                    <input
-                      type="checkbox"
-                      id={`custom-checkbox-${item.id}`}
-                      name={item.name}
-                      value={item.name}
-                      checked={
-                        !!item.lastPurchasedDate &&
-                        new Date() - item.lastPurchasedDate < ONE_DAY
-                      }
-                      onChange={(e) => handleChange(item.id, e)}
-                    />
-                    <label htmlFor={`custom-checkbox-${item.id}`}>
-                      {item.name}
-                    </label>
-                    <DeleteButton id={item.id} />
-                  </li>
-                );
-              })}
-        </ul>
-        <NavigationMenu />
-      </>
-    );
-  }
-  return (
+
+  return items.length ? (
+    <>
+      <label htmlFor="filterItems">Filter items:</label>
+      <input
+        name="filterItems"
+        type="text"
+        value={filterItem}
+        placeholder="Start typing here..."
+        onChange={(event) => setFilterItem(event.target.value)}
+      ></input>
+      <button onClick={() => setFilterItem('')}>X</button>
+      <ul className="list">
+        {items &&
+          items
+            .filter((item) =>
+              item.name.toLowerCase().includes(filterItem.toLowerCase()),
+            )
+            .sort(itemSort)
+            .map((item) => {
+              return (
+                <li key={item.id} className={getClassName(item)}>
+                  <input
+                    type="checkbox"
+                    aria-label={getClassName(item)}
+                    id={`custom-checkbox-${item.id}`}
+                    name={item.name}
+                    value={item.name}
+                    checked={
+                      !!item.lastPurchasedDate &&
+                      new Date() - item.lastPurchasedDate < ONE_DAY
+                    }
+                    onChange={(e) => handleChange(item.id, e)}
+                  />
+                  <label htmlFor={`custom-checkbox-${item.id}`}>
+                    {item.name}
+                  </label>
+                  <DeleteButton id={item.id} />                  
+                </li>
+              );
+            })}
+      </ul>
+      <NavigationMenu />
+    </>
+  ) : (
     <>
       <p>
         Welcome, friend! Your list is currently empty. Click below to add a new
