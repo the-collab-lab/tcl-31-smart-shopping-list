@@ -72,7 +72,7 @@ function AddForm() {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <label>
-        Item Name:
+        What do you need?
         <input
           type="text"
           onChange={(e) => setItem(e.target.value)}
@@ -80,6 +80,7 @@ function AddForm() {
         />
       </label>
       <div>
+        <h3>When do you need it?</h3>
         <input
           type="radio"
           id="soon"
@@ -88,7 +89,7 @@ function AddForm() {
           checked={days === 7}
           onChange={handleChange}
         />
-        <label htmlFor="soon">Soon</label>
+        <label htmlFor="soon">This week</label>
         <input
           type="radio"
           id="kind-of-soon"
@@ -97,7 +98,7 @@ function AddForm() {
           checked={days === 14}
           onChange={handleChange}
         />
-        <label htmlFor="kind-of-soon">Kind of Soon</label>
+        <label htmlFor="kind-of-soon">Next week</label>
         <input
           type="radio"
           id="not-soon"
@@ -106,9 +107,10 @@ function AddForm() {
           checked={days === 30}
           onChange={handleChange}
         />
-        <label htmlFor="not-soon">Not Soon</label>
+        <label htmlFor="not-soon">Next month</label>
       </div>
       <button type="submit">Add Item</button>
+
       {errorMessage !== '' && (
         <div className="error-message">{errorMessage}</div>
       )}
