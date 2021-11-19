@@ -14,6 +14,14 @@ import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
+import AddForm from './AddForm';
+import {
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from '@mui/material';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -171,6 +179,21 @@ export function List() {
 
   return items.length ? (
     <>
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Gender</FormLabel>
+        <RadioGroup
+          aria-label="gender"
+          defaultValue="female"
+          name="radio-buttons-group"
+        >
+          <FormControlLabel value="female" control={<Radio />} label="Female" />
+          <FormControlLabel value="male" control={<Radio />} label="Male" />
+          <FormControlLabel value="other" control={<Radio />} label="Other" />
+        </RadioGroup>
+      </FormControl>
+
+      <AddForm />
+
       <label htmlFor="filterItems">Filter items:</label>
       <input
         name="filterItems"
@@ -205,7 +228,7 @@ export function List() {
                   <label htmlFor={`custom-checkbox-${item.id}`}>
                     {item.name}
                   </label>
-                  <DeleteButton id={item.id} />                  
+                  <DeleteButton id={item.id} />
                 </li>
               );
             })}
