@@ -14,14 +14,6 @@ import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
-import AddForm from './AddForm';
-// import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio  } from '@mui/material';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import FormControl from '@mui/material/FormControl';
-import Radio from '@mui/material/Radio';
-import TextField from '@mui/material/TextField';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -179,23 +171,6 @@ export function List() {
 
   return items.length ? (
     <>
-      <AddForm />
-      {/* Attempted TextField Add */}
-      <TextField />
-      {/* Attempted radio buttons add copied directly from documentation */}
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Gender</FormLabel>
-        <RadioGroup
-          aria-label="gender"
-          defaultValue="female"
-          name="radio-buttons-group"
-        >
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
-          <FormControlLabel value="male" control={<Radio />} label="Male" />
-          <FormControlLabel value="other" control={<Radio />} label="Other" />
-        </RadioGroup>
-      </FormControl>
-
       <label htmlFor="filterItems">Filter items:</label>
       <input
         name="filterItems"

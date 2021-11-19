@@ -7,6 +7,14 @@ import {
   addDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
+// import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio  } from '@mui/material';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import Radio from '@mui/material/Radio';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 
 function AddForm() {
   const [item, setItem] = useState('');
@@ -69,16 +77,50 @@ function AddForm() {
     });
   }
 
+  {
+    /* Attempted radio buttons add copied directly from documentation */
+  }
+  <FormControl component="fieldset">
+    <FormLabel component="legend">Gender</FormLabel>
+    <RadioGroup
+      aria-label="gender"
+      defaultValue="female"
+      name="radio-buttons-group"
+    >
+      <FormControlLabel value="female" control={<Radio />} label="Female" />
+      <FormControlLabel value="male" control={<Radio />} label="Male" />
+      <FormControlLabel value="other" control={<Radio />} label="Other" />
+    </RadioGroup>
+  </FormControl>;
+
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <label>
+      {/* Inicio the MateriaUI */}
+      <Box
+        sx={{
+          width: 368,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          '& > :not(style)': { m: 1 },
+        }}
+      >
+        <TextField
+          helperText="What do you need"
+          id="demo-helper-text-aligned"
+          onChange={(e) => setItem(e.target.value)}
+          label="item-name"
+        />
+      </Box>
+      {/* finish the materia UI*/}
+      {/*      <label>
         What do you need?
         <input
           type="text"
           onChange={(e) => setItem(e.target.value)}
           name="item-name"
         />
-      </label>
+      </label>*/}
       <div>
         <h3>When do you need it?</h3>
         <input
