@@ -10,7 +10,6 @@ import { db } from './lib/firebase.js';
 // import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio  } from '@mui/material';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import Radio from '@mui/material/Radio';
 import TextField from '@mui/material/TextField';
@@ -21,6 +20,7 @@ function AddForm() {
   const [days, setDays] = useState(7);
   const [shoppingList, setShoppingList] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [selectedValue, setSelectedValue] = React.useState('a');
 
   const userToken = localStorage.getItem('token');
 
@@ -77,25 +77,10 @@ function AddForm() {
     });
   }
 
-  {
-    /* Attempted radio buttons add copied directly from documentation */
-  }
-  <FormControl component="fieldset">
-    <FormLabel component="legend">Gender</FormLabel>
-    <RadioGroup
-      aria-label="gender"
-      defaultValue="female"
-      name="radio-buttons-group"
-    >
-      <FormControlLabel value="female" control={<Radio />} label="Female" />
-      <FormControlLabel value="male" control={<Radio />} label="Male" />
-      <FormControlLabel value="other" control={<Radio />} label="Other" />
-    </RadioGroup>
-  </FormControl>;
-
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      {/* Inicio the MateriaUI */}
+      <h3>What do you need?</h3>
+      {/* Begin the MateriaUI */}
       <Box
         sx={{
           width: 368,
@@ -106,23 +91,53 @@ function AddForm() {
         }}
       >
         <TextField
-          helperText="What do you need"
+          // helperText="What do you need"
           id="demo-helper-text-aligned"
           onChange={(e) => setItem(e.target.value)}
-          label="item-name"
+          label="type your item here"
         />
       </Box>
       {/* finish the materia UI*/}
-      {/*      <label>
-        What do you need?
-        <input
-          type="text"
-          onChange={(e) => setItem(e.target.value)}
-          name="item-name"
-        />
-      </label>*/}
+
       <div>
         <h3>When do you need it?</h3>
+
+        <FormControl component="fieldset">
+          <RadioGroup
+            aria-label="days"
+            defaultValue="7"
+            name="radio-buttons-group"
+          >
+            <FormControlLabel
+              value="7"
+              control={<Radio />}
+              label="This week"
+              id="soon"
+              name="days"
+              checked={days === 7}
+              onChange={handleChange}
+            />
+            <FormControlLabel
+              value="14"
+              control={<Radio />}
+              label="Next week"
+              id="kind-of-soon"
+              name="days"
+              checked={days === 14}
+              onChange={handleChange}
+            />
+            <FormControlLabel
+              value="30"
+              control={<Radio />}
+              label="Next month"
+              id="not-soon"
+              name="days"
+              checked={days === 30}
+              onChange={handleChange}
+            />
+          </RadioGroup>
+        </FormControl>
+        {/* Old Radio buttons before Material UI added, delete if working well!
         <input
           type="radio"
           id="soon"
@@ -149,7 +164,7 @@ function AddForm() {
           checked={days === 30}
           onChange={handleChange}
         />
-        <label htmlFor="not-soon">Next month</label>
+        <label htmlFor="not-soon">Next month</label> */}
       </div>
       <button type="submit">Add Item</button>
 

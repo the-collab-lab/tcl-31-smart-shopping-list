@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
+import AddForm from './AddForm';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -171,6 +172,7 @@ export function List() {
 
   return items.length ? (
     <>
+      <AddForm />
       <label htmlFor="filterItems">Filter items:</label>
       <input
         name="filterItems"
