@@ -14,6 +14,18 @@ import { Link } from 'react-router-dom';
 import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
+import MuiList from '@mui/material/List';
+import { yellow, red, blue, grey } from '@mui/material/colors';
+import {
+  Box,
+  Checkbox,
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  TextField,
+} from '@mui/material';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -29,15 +41,15 @@ const getClassName = (item) => {
     item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item);
 
   if (itemIsInactive(item)) {
-    return 'inactive';
+    return grey;
   }
   if (daysToBuy <= 7) {
-    return 'soon';
+    return blue;
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
-    return 'kind-of-soon';
+    return yellow;
   }
-  return 'not-soon';
+  return red;
 };
 
 export function List() {
@@ -47,7 +59,7 @@ export function List() {
   const [filterItem, setFilterItem] = useState('');
 
   //only change to 60*60*24  for 24 hours
-  const ONE_DAY = 60 * 60 * 24 * 1000;
+  const ONE_DAY = 10 * 10 * 1000;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -135,13 +147,6 @@ export function List() {
     setTimeout(() => setReRender({}), timeToMinDate);
   }, [reRender, items, ONE_DAY]);
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      await deleteDoc(doc(db, 'shopping-list', id));
-      setItems(items.filter((item) => item.id !== id));
-    }
-  };
-
   const handleChange = async (id, event) => {
     let date = new Date();
     const item = items.find((element) => element.id === id);
@@ -180,6 +185,66 @@ export function List() {
         onChange={(event) => setFilterItem(event.target.value)}
       ></input>
       <button onClick={() => setFilterItem('')}>X</button>
+      <Box
+        sx={{
+          width: 368,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          '& > :not(style)': { m: 1 },
+        }}
+      >
+        <TextField
+          helperText="filterItems"
+          id="demo-helper-text-aligned"
+          label="Start typing here..."
+        ></TextField>
+      </Box>
+      <MuiList>
+        {items &&
+          items
+            .filter((item) =>
+              item.name.toLowerCase().includes(filterItem.toLowerCase()),
+            )
+            .sort(itemSort)
+            .map((item) => {
+              return (
+                <ListItem
+                  key={item.id}
+                  secondaryAction={
+                    <IconButton aria-label={getClassName(item)}></IconButton>
+                  }
+                >
+                  <ListItemButton role={undefined}>
+                    <ListItemIcon>
+                      <Checkbox
+                        dge="start"
+                        value={item.name}
+                        id={`custom-checkbox-${item.id}`}
+                        disableRipple
+                        checked={
+                          !!item.lastPurchasedDate &&
+                          new Date() - item.lastPurchasedDate < ONE_DAY
+                        }
+                        onChange={(e) => handleChange(item.id, e)}
+                        sx={{
+                          color: getClassName(item)[800],
+                          '&.Mui-checked': {
+                            color: getClassName(item)[600],
+                          },
+                        }}
+                      ></Checkbox>
+                    </ListItemIcon>
+                    <ListItemText
+                      id={item.id}
+                      primary={item.name}
+                    ></ListItemText>
+                    <DeleteButton id={item.id} />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+      </MuiList>
       <ul className="list">
         {items &&
           items
@@ -205,7 +270,7 @@ export function List() {
                   <label htmlFor={`custom-checkbox-${item.id}`}>
                     {item.name}
                   </label>
-                  <DeleteButton id={item.id} />                  
+                  <DeleteButton id={item.id} />
                 </li>
               );
             })}
