@@ -28,25 +28,27 @@ export function Home() {
 
         <div className="main">
           <div className="main-header">
-            <h1>
+            <h1 className="flex-items">
               Remember what to buy, <span className="h1_standout">exactly</span>{' '}
               when you need it
             </h1>
             <img
-              width="193"
-              height="130"
+              className="flex-items"
+              width="50%"
+              height="50%"
               src={orangeSlice}
               alt="orange slice"
             />
           </div>
           <div className="main-content">
             <img
-              width="193"
-              height="130"
+              className="flex-items"
+              width="50%"
+              height="50%"
               src={orangeWhole}
               alt="orange whole"
             />
-            <div>
+            <div className="flex-items">
               <h2 className="main-content-title">How it works</h2>
               <p>
                 Just add an item to your list, and select it when you want to
@@ -57,7 +59,7 @@ export function Home() {
               </p>
             </div>
           </div>
-          <div className="buttons">
+          <div className="buttons flex-items">
             <button className="newListButton" onClick={createToken}>
               Create a new shopping list
             </button>

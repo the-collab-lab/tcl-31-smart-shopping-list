@@ -3,10 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.flex-items {
+  padding: 10px;
+}
 .navbar {
   background-color: #fff;
   padding: 20px;
+  padding-left: 50px;
   font-family: 'Inter', sans-serif;
   font-size: 30px;
   font-weight: bold;
@@ -49,7 +52,8 @@
 }
 
 .main {
-  padding: 20px;
+  padding: 40px;
+  padding-top: 20px;
   font-size: 40px;
   font-family: 'Inter', sans-serif;
 }
@@ -92,6 +96,12 @@
 
 .inputExistingList {
   font-size: 30px;
+  border-radius: 15px;
+  border-width: 0.5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 20px;
 }
 .existingListButton {
   letter-spacing: -0.408px;
