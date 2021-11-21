@@ -24,7 +24,7 @@ export function Home() {
       <Redirect to="/list" />
     ) : (
       <>
-        <nav className="navbar">Smart Shopping List</nav>
+        <nav className="navbar">Smart Shopping List (insert logo)</nav>
 
         <div className="main">
           <div className="main-header">
@@ -57,10 +57,12 @@ export function Home() {
               </p>
             </div>
           </div>
-          <button className="newListButton" onClick={createToken}>
-            Create a new shopping list
-          </button>
-          <TokenForm />
+          <div className="buttons">
+            <button className="newListButton" onClick={createToken}>
+              Create a new shopping list
+            </button>
+            <TokenForm />
+          </div>
         </div>
       </>
     )
