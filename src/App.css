@@ -40,6 +40,7 @@
   width: auto;
   margin: auto;
   align-items: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .homeButton {
@@ -71,4 +72,8 @@
 
 .not-soon {
   background: indianred;
+}
+
+.h1_standout {
+  color: orange;
 }

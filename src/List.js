@@ -135,13 +135,6 @@ export function List() {
     setTimeout(() => setReRender({}), timeToMinDate);
   }, [reRender, items, ONE_DAY]);
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      await deleteDoc(doc(db, 'shopping-list', id));
-      setItems(items.filter((item) => item.id !== id));
-    }
-  };
-
   const handleChange = async (id, event) => {
     let date = new Date();
     const item = items.find((element) => element.id === id);
@@ -205,7 +198,7 @@ export function List() {
                   <label htmlFor={`custom-checkbox-${item.id}`}>
                     {item.name}
                   </label>
-                  <DeleteButton id={item.id} />                  
+                  <DeleteButton id={item.id} />
                 </li>
               );
             })}
