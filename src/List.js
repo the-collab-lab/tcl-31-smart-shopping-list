@@ -15,7 +15,7 @@ import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import MuiList from '@mui/material/List';
-import { yellow, red, blue, grey } from '@mui/material/colors';
+import { yellow, red, lightGreen, grey } from '@mui/material/colors';
 import {
   Box,
   Checkbox,
@@ -26,6 +26,7 @@ import {
   ListItemText,
   TextField,
 } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -44,7 +45,7 @@ const getClassName = (item) => {
     return grey;
   }
   if (daysToBuy <= 7) {
-    return blue;
+    return lightGreen;
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
     return yellow;
@@ -59,7 +60,7 @@ export function List() {
   const [filterItem, setFilterItem] = useState('');
 
   //only change to 60*60*24  for 24 hours
-  const ONE_DAY = 10 * 10 * 1000;
+  const ONE_DAY = 10;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -176,105 +177,79 @@ export function List() {
 
   return items.length ? (
     <>
-      <label htmlFor="filterItems">Filter items:</label>
-      <input
-        name="filterItems"
-        type="text"
-        value={filterItem}
-        placeholder="Start typing here..."
-        onChange={(event) => setFilterItem(event.target.value)}
-      ></input>
-      <button onClick={() => setFilterItem('')}>X</button>
       <Box
         sx={{
-          width: 368,
+          width: 700,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
           '& > :not(style)': { m: 1 },
         }}
       >
-        <TextField
-          helperText="filterItems"
-          id="demo-helper-text-aligned"
-          label="Start typing here..."
-        ></TextField>
-      </Box>
-      <MuiList>
-        {items &&
-          items
-            .filter((item) =>
-              item.name.toLowerCase().includes(filterItem.toLowerCase()),
-            )
-            .sort(itemSort)
-            .map((item) => {
-              return (
-                <ListItem
-                  key={item.id}
-                  secondaryAction={
-                    <IconButton aria-label={getClassName(item)}></IconButton>
-                  }
-                >
-                  <ListItemButton role={undefined}>
-                    <ListItemIcon>
-                      <Checkbox
-                        dge="start"
-                        value={item.name}
-                        id={`custom-checkbox-${item.id}`}
-                        disableRipple
-                        checked={
-                          !!item.lastPurchasedDate &&
-                          new Date() - item.lastPurchasedDate < ONE_DAY
-                        }
-                        onChange={(e) => handleChange(item.id, e)}
-                        sx={{
-                          color: getClassName(item)[800],
-                          '&.Mui-checked': {
-                            color: getClassName(item)[600],
-                          },
-                        }}
-                      ></Checkbox>
-                    </ListItemIcon>
-                    <ListItemText
-                      id={item.id}
-                      primary={item.name}
-                    ></ListItemText>
-                    <DeleteButton id={item.id} />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-      </MuiList>
-      <ul className="list">
-        {items &&
-          items
-            .filter((item) =>
-              item.name.toLowerCase().includes(filterItem.toLowerCase()),
-            )
-            .sort(itemSort)
-            .map((item) => {
-              return (
-                <li key={item.id} className={getClassName(item)}>
-                  <input
-                    type="checkbox"
-                    aria-label={getClassName(item)}
-                    id={`custom-checkbox-${item.id}`}
-                    name={item.name}
-                    value={item.name}
-                    checked={
-                      !!item.lastPurchasedDate &&
-                      new Date() - item.lastPurchasedDate < ONE_DAY
+        <Box
+          sx={{
+            width: 400,
+          }}
+        >
+          <TextField
+            helperText="filterItems"
+            value={filterItem}
+            label="Start typing here..."
+            onChange={(event) => setFilterItem(event.target.value)}
+          ></TextField>
+          <IconButton aria-label="delete" size="large">
+            <ClearIcon
+              sx={{ color: red[500] }}
+              onClick={() => setFilterItem('')}
+            ></ClearIcon>
+          </IconButton>
+        </Box>
+        <MuiList>
+          {items &&
+            items
+              .filter((item) =>
+                item.name.toLowerCase().includes(filterItem.toLowerCase()),
+              )
+              .sort(itemSort)
+              .map((item) => {
+                return (
+                  <ListItem
+                    key={item.id}
+                    secondaryAction={
+                      <IconButton aria-label={getClassName(item)}></IconButton>
                     }
-                    onChange={(e) => handleChange(item.id, e)}
-                  />
-                  <label htmlFor={`custom-checkbox-${item.id}`}>
-                    {item.name}
-                  </label>
-                  <DeleteButton id={item.id} />
-                </li>
-              );
-            })}
-      </ul>
+                  >
+                    <ListItemButton role={undefined}>
+                      <ListItemIcon>
+                        <Checkbox
+                          dge="start"
+                          value={item.name}
+                          id={`custom-checkbox-${item.id}`}
+                          checked={
+                            !!item.lastPurchasedDate &&
+                            new Date() - item.lastPurchasedDate < ONE_DAY
+                          }
+                          onChange={(e) => handleChange(item.id, e)}
+                          defaultChecked
+                          sx={{
+                            color: getClassName(item)[800],
+                            '&.MuiCheckbox-root': {
+                              color: getClassName(item)[600],
+                            },
+                          }}
+                        ></Checkbox>
+                      </ListItemIcon>
+                      <ListItemText
+                        id={item.id}
+                        primary={item.name}
+                      ></ListItemText>
+                      <DeleteButton id={item.id} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+        </MuiList>
+      </Box>
       <NavigationMenu />
     </>
   ) : (
