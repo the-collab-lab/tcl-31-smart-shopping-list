@@ -6,7 +6,6 @@ import {
   setDoc,
   onSnapshot,
   where,
-  deleteDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';

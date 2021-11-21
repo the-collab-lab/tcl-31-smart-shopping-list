@@ -52,11 +52,11 @@ const TokenForm = () => {
     <form action="" onSubmit={handleSubmit}>
       <label htmlFor="existingToken">
         <input
-          className="inputHome"
+          className="inputExistingList"
           id="existingToken"
           type="text"
           name="existingToken"
-          placeholder="three word token"
+          placeholder="add token here"
           value={formData}
           onChange={handleChange}
         />
