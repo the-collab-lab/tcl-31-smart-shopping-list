@@ -7,7 +7,6 @@ import {
   addDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
-// import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio  } from '@mui/material';
 import {
   RadioGroup,
   FormControlLabel,

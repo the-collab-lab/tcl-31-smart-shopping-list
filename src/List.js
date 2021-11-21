@@ -11,7 +11,7 @@ import {
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
-import { NavigationMenu } from './NavigationMenu';
+// import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import AddForm from './AddForm';
@@ -213,7 +213,7 @@ export function List() {
             })}
       </ul>
 
-      <NavigationMenu />
+      {/* <NavigationMenu /> */}
     </>
   ) : (
     <>
@@ -224,7 +224,7 @@ export function List() {
       <Link to={`/add`}>
         <button>Add item</button>
       </Link>
-      <NavigationMenu />
+      {/* <NavigationMenu /> */}
     </>
   );
 }
