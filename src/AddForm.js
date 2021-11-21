@@ -8,19 +8,22 @@ import {
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 // import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio  } from '@mui/material';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import Radio from '@mui/material/Radio';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import {
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  Radio,
+  TextField,
+  Box,
+  FormLabel,
+} from '@mui/material';
+import { lightGreen, orange, red } from '@mui/material/colors';
 
 function AddForm() {
   const [item, setItem] = useState('');
   const [days, setDays] = useState(7);
   const [shoppingList, setShoppingList] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const [selectedValue, setSelectedValue] = React.useState('a');
 
   const userToken = localStorage.getItem('token');
 
@@ -100,40 +103,65 @@ function AddForm() {
       {/* finish the materia UI*/}
 
       <div>
-        <h3>When do you need it?</h3>
-
         <FormControl component="fieldset">
+          <FormLabel component="legend">When do you need it?</FormLabel>
           <RadioGroup
+            row
             aria-label="days"
-            defaultValue="7"
+            value="7"
             name="radio-buttons-group"
+            onChange={handleChange}
           >
             <FormControlLabel
               value="7"
-              control={<Radio />}
+              control={
+                <Radio
+                  id="soon"
+                  name="days"
+                  checked={days === 7}
+                  sx={{
+                    color: lightGreen[800],
+                    '&.Mui-checked': {
+                      color: lightGreen[500],
+                    },
+                  }}
+                />
+              }
               label="This week"
-              id="soon"
-              name="days"
-              checked={days === 7}
-              onChange={handleChange}
             />
             <FormControlLabel
               value="14"
-              control={<Radio />}
+              control={
+                <Radio
+                  id="kind-of-soon"
+                  name="days"
+                  checked={days === 14}
+                  sx={{
+                    color: orange[800],
+                    '&.Mui-checked': {
+                      color: orange[500],
+                    },
+                  }}
+                />
+              }
               label="Next week"
-              id="kind-of-soon"
-              name="days"
-              checked={days === 14}
-              onChange={handleChange}
             />
             <FormControlLabel
               value="30"
-              control={<Radio />}
+              control={
+                <Radio
+                  id="not-soon"
+                  name="days"
+                  checked={days === 30}
+                  sx={{
+                    color: red[800],
+                    '&.Mui-checked': {
+                      color: red[500],
+                    },
+                  }}
+                />
+              }
               label="Next month"
-              id="not-soon"
-              name="days"
-              checked={days === 30}
-              onChange={handleChange}
             />
           </RadioGroup>
         </FormControl>
