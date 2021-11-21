@@ -15,7 +15,7 @@ import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import MuiList from '@mui/material/List';
-import { yellow, red, lightGreen, grey } from '@mui/material/colors';
+import { orange, red, lightGreen, grey } from '@mui/material/colors';
 import {
   Box,
   Checkbox,
@@ -48,7 +48,7 @@ const getClassName = (item) => {
     return lightGreen;
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
-    return yellow;
+    return orange;
   }
   return red;
 };
@@ -60,7 +60,7 @@ export function List() {
   const [filterItem, setFilterItem] = useState('');
 
   //only change to 60*60*24  for 24 hours
-  const ONE_DAY = 10;
+  const ONE_DAY = 60 * 60 * 24 * 1000;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -188,7 +188,7 @@ export function List() {
       >
         <Box
           sx={{
-            width: 400,
+            width: 368,
           }}
         >
           <TextField
