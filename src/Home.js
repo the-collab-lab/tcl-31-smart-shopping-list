@@ -2,7 +2,7 @@ import React from 'react';
 import { getToken } from '@the-collab-lab/shopping-list-utils';
 import { useHistory, Redirect } from 'react-router-dom';
 import TokenForm from './TokenForm';
-import orangeSlice from './assets/orangeSlice.jpg';
+import orangeSliceRemoveBackground from './assets/orangeSliceRemoveBackground.png';
 import orangeWhole from './assets/orangeWhole.jpg';
 
 export function Home() {
@@ -36,7 +36,7 @@ export function Home() {
               className="flex-items"
               width="50%"
               height="50%"
-              src={orangeSlice}
+              src={orangeSliceRemoveBackground}
               alt="orange slice"
             />
           </div>
