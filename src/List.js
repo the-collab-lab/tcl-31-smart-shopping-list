@@ -6,7 +6,6 @@ import {
   setDoc,
   onSnapshot,
   where,
-  deleteDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
@@ -183,14 +182,20 @@ export function List() {
         sx={{
           width: 700,
           display: 'flex',
+          margin: 'auto',
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           '& > :not(style)': { m: 1 },
         }}
       >
         <Box
           sx={{
-            width: 368,
+            margin: 'auto',
+
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignContent: 'start',
           }}
         >
           <TextField
