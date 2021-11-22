@@ -6,14 +6,27 @@ import {
   setDoc,
   onSnapshot,
   where,
-  deleteDoc,
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
-import { NavigationMenu } from './NavigationMenu';
+// import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
+import AddForm from './AddForm';
+import MuiList from '@mui/material/List';
+import { orange, red, lightGreen, grey } from '@mui/material/colors';
+import {
+  Box,
+  Checkbox,
+  IconButton,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  TextField,
+} from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -29,15 +42,15 @@ const getClassName = (item) => {
     item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item);
 
   if (itemIsInactive(item)) {
-    return 'inactive';
+    return grey;
   }
   if (daysToBuy <= 7) {
-    return 'soon';
+    return lightGreen;
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
-    return 'kind-of-soon';
+    return orange;
   }
-  return 'not-soon';
+  return red;
 };
 
 export function List() {
@@ -135,13 +148,6 @@ export function List() {
     setTimeout(() => setReRender({}), timeToMinDate);
   }, [reRender, items, ONE_DAY]);
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      await deleteDoc(doc(db, 'shopping-list', id));
-      setItems(items.filter((item) => item.id !== id));
-    }
-  };
-
   const handleChange = async (id, event) => {
     let date = new Date();
     const item = items.find((element) => element.id === id);
@@ -171,46 +177,86 @@ export function List() {
 
   return items.length ? (
     <>
-      <label htmlFor="filterItems">Filter items:</label>
-      <input
-        name="filterItems"
-        type="text"
-        value={filterItem}
-        placeholder="Start typing here..."
-        onChange={(event) => setFilterItem(event.target.value)}
-      ></input>
-      <button onClick={() => setFilterItem('')}>X</button>
-      <ul className="list">
-        {items &&
-          items
-            .filter((item) =>
-              item.name.toLowerCase().includes(filterItem.toLowerCase()),
-            )
-            .sort(itemSort)
-            .map((item) => {
-              return (
-                <li key={item.id} className={getClassName(item)}>
-                  <input
-                    type="checkbox"
-                    aria-label={getClassName(item)}
-                    id={`custom-checkbox-${item.id}`}
-                    name={item.name}
-                    value={item.name}
-                    checked={
-                      !!item.lastPurchasedDate &&
-                      new Date() - item.lastPurchasedDate < ONE_DAY
+      <AddForm />
+      <Box
+        sx={{
+          width: 700,
+          display: 'flex',
+          margin: 'auto',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          '& > :not(style)': { m: 1 },
+        }}
+      >
+        <Box
+          sx={{
+            margin: 'auto',
+
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            alignContent: 'start',
+          }}
+        >
+          <TextField
+            helperText="filterItems"
+            value={filterItem}
+            label="Start typing here..."
+            onChange={(event) => setFilterItem(event.target.value)}
+          ></TextField>
+          <IconButton aria-label="delete" size="large">
+            <ClearIcon
+              sx={{ color: red[500] }}
+              onClick={() => setFilterItem('')}
+            ></ClearIcon>
+          </IconButton>
+        </Box>
+        <MuiList>
+          {items &&
+            items
+              .filter((item) =>
+                item.name.toLowerCase().includes(filterItem.toLowerCase()),
+              )
+              .sort(itemSort)
+              .map((item) => {
+                return (
+                  <ListItem
+                    key={item.id}
+                    secondaryAction={
+                      <IconButton aria-label={getClassName(item)}></IconButton>
                     }
-                    onChange={(e) => handleChange(item.id, e)}
-                  />
-                  <label htmlFor={`custom-checkbox-${item.id}`}>
-                    {item.name}
-                  </label>
-                  <DeleteButton id={item.id} />                  
-                </li>
-              );
-            })}
-      </ul>
-      <NavigationMenu />
+                  >
+                    <ListItemButton role={undefined}>
+                      <ListItemIcon>
+                        <Checkbox
+                          dge="start"
+                          value={item.name}
+                          id={`custom-checkbox-${item.id}`}
+                          checked={
+                            !!item.lastPurchasedDate &&
+                            new Date() - item.lastPurchasedDate < ONE_DAY
+                          }
+                          onChange={(e) => handleChange(item.id, e)}
+                          defaultChecked
+                          sx={{
+                            color: getClassName(item)[800],
+                            '&.MuiCheckbox-root': {
+                              color: getClassName(item)[600],
+                            },
+                          }}
+                        ></Checkbox>
+                      </ListItemIcon>
+                      <ListItemText
+                        id={item.id}
+                        primary={item.name}
+                      ></ListItemText>
+                      <DeleteButton id={item.id} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+        </MuiList>
+      </Box>
     </>
   ) : (
     <>
@@ -221,7 +267,7 @@ export function List() {
       <Link to={`/add`}>
         <button>Add item</button>
       </Link>
-      <NavigationMenu />
+      {/* <NavigationMenu /> */}
     </>
   );
 }
