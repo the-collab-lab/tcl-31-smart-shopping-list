@@ -11,9 +11,10 @@ import {
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
-import { NavigationMenu } from './NavigationMenu';
+// import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
+import AddForm from './AddForm';
 import MuiList from '@mui/material/List';
 import { orange, red, lightGreen, grey } from '@mui/material/colors';
 import {
@@ -177,6 +178,7 @@ export function List() {
 
   return items.length ? (
     <>
+      <AddForm />
       <Box
         sx={{
           width: 700,
@@ -250,7 +252,6 @@ export function List() {
               })}
         </MuiList>
       </Box>
-      <NavigationMenu />
     </>
   ) : (
     <>
@@ -261,7 +262,7 @@ export function List() {
       <Link to={`/add`}>
         <button>Add item</button>
       </Link>
-      <NavigationMenu />
+      {/* <NavigationMenu /> */}
     </>
   );
 }
