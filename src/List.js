@@ -225,16 +225,6 @@ export function List() {
                     secondaryAction={
                       <IconButton aria-label={getClassName(item)}></IconButton>
                     }
-                    onChange={(e) => handleChange(item.id, e)}
-                  />
-                  <label htmlFor={`custom-checkbox-${item.id}`}>
-                    {item.name}
-                  </label>
-                  <DeleteButton id={item.id} />
-                </li>
-              );
-            })}
-      </ul>
                   >
                     <ListItemButton role={undefined}>
                       <ListItemIcon>
