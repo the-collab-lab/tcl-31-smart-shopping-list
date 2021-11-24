@@ -25,7 +25,6 @@ export function Home() {
     ) : (
       <>
         <nav className="navbar">Smart Shopping List (insert logo)</nav>
-
         <div className="main">
           <div className="main-header">
             <h1 className="flex-items">
