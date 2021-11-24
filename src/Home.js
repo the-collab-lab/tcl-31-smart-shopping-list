@@ -2,8 +2,6 @@ import React from 'react';
 import { getToken } from '@the-collab-lab/shopping-list-utils';
 import { useHistory, Redirect } from 'react-router-dom';
 import TokenForm from './TokenForm';
-import orangeSliceRemoveBackground from './assets/orangeSliceRemoveBackground.png';
-import orangeWhole from './assets/orangeWhole.jpg';
 
 export function Home() {
   const history = useHistory();
