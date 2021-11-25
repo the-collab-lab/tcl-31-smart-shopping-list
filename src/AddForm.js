@@ -105,7 +105,7 @@ function AddForm() {
 
         <div>
           <FormControl component="fieldset">
-            <h1>When do you need it?</h1>
+            <h3>When do you need it?</h3>
 
             <RadioGroup
               row
