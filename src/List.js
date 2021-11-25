@@ -192,7 +192,7 @@ export function List() {
       <AddForm />
       <Box
         sx={{
-          width: '88%',
+          width: '100%',
           display: 'flex',
           margin: 'auto',
           flexDirection: 'row',

@@ -90,14 +90,15 @@ function AddForm() {
       {/* Begin the MaterialUI */}
       <Box
         sx={{
-          width: '85%',
+          width: '100%',
           border: 1,
           display: 'flex',
           flexDirection: 'row',
+          justifyContent: 'space-between',
           '& > :not(style)': { m: 1 },
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ width: '40%', display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
             What do you need?
           </Typography>
@@ -119,79 +120,71 @@ function AddForm() {
         </IconButton>
 
         {/* finish the materia UI*/}
-        <div>
-          <FormControl component="fieldset">
-            {/* <h3>When do you need it?</h3>*/}
-            <Box
-              sx={{
-                justifyContent: 'flex-end',
-              }}
-            >
-              <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
-                When do you need it?
-              </Typography>
-              <RadioGroup
-                row
-                aria-label="days"
-                value="7"
-                name="radio-buttons-group"
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  value="7"
-                  control={
-                    <Radio
-                      id="soon"
-                      name="days"
-                      checked={days === 7}
-                      sx={{
-                        color: lightGreen[800],
-                        '&.Mui-checked': {
-                          color: lightGreen[500],
-                        },
-                      }}
-                    />
-                  }
-                  label="This week"
+        <FormControl component="fieldset">
+          {/* <h3>When do you need it?</h3>*/}
+          <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
+            When do you need it?
+          </Typography>
+          <RadioGroup
+            row
+            aria-label="days"
+            value="7"
+            name="radio-buttons-group"
+            onChange={handleChange}
+          >
+            <FormControlLabel
+              value="7"
+              control={
+                <Radio
+                  id="soon"
+                  name="days"
+                  checked={days === 7}
+                  sx={{
+                    color: lightGreen[800],
+                    '&.Mui-checked': {
+                      color: lightGreen[500],
+                    },
+                  }}
                 />
-                <FormControlLabel
-                  value="14"
-                  control={
-                    <Radio
-                      id="kind-of-soon"
-                      name="days"
-                      checked={days === 14}
-                      sx={{
-                        color: orange[800],
-                        '&.Mui-checked': {
-                          color: orange[500],
-                        },
-                      }}
-                    />
-                  }
-                  label="Next week"
+              }
+              label="This week"
+            />
+            <FormControlLabel
+              value="14"
+              control={
+                <Radio
+                  id="kind-of-soon"
+                  name="days"
+                  checked={days === 14}
+                  sx={{
+                    color: orange[800],
+                    '&.Mui-checked': {
+                      color: orange[500],
+                    },
+                  }}
                 />
-                <FormControlLabel
-                  value="30"
-                  control={
-                    <Radio
-                      id="not-soon"
-                      name="days"
-                      checked={days === 30}
-                      sx={{
-                        color: red[800],
-                        '&.Mui-checked': {
-                          color: red[500],
-                        },
-                      }}
-                    />
-                  }
-                  label="Next month"
+              }
+              label="Next week"
+            />
+            <FormControlLabel
+              value="30"
+              control={
+                <Radio
+                  id="not-soon"
+                  name="days"
+                  checked={days === 30}
+                  sx={{
+                    color: red[800],
+                    '&.Mui-checked': {
+                      color: red[500],
+                    },
+                  }}
                 />
-              </RadioGroup>
-            </Box>
-          </FormControl>
-        </div>
+              }
+              label="Next month"
+            />
+          </RadioGroup>
+        </FormControl>
       </Box>
       {/*        <Button variant="outlined" type="submit" id="submit-item">
           {' '}
