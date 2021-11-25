@@ -49,20 +49,20 @@ const TokenForm = () => {
   };
 
   return (
-    <form action="" onSubmit={handleSubmit}>
+    <form className="existingListForm" action="" onSubmit={handleSubmit}>
       <label htmlFor="existingToken">
         <input
-          className="inputHome"
+          className="inputExistingList"
           id="existingToken"
           type="text"
           name="existingToken"
-          placeholder="three word token"
+          placeholder="add token here"
           value={formData}
           onChange={handleChange}
         />
       </label>
       {formError && <p className="validation">Please enter a valid token.</p>}
-      <button className="homeButton" type="submit">
+      <button className="existingListButton" type="submit">
         Join an existing list
       </button>
     </form>

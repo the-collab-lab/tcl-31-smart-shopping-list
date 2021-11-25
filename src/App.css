@@ -1,6 +1,27 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+.flex-items {
+  padding: 10px;
+}
+
+.navbar {
+  background-color: #fff;
+  padding: 20px;
+  padding-left: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+.navbar-logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin-right: 20px;
 }
 
 .links {
@@ -32,26 +53,72 @@
   margin: 50px;
 }
 
-.WelcomeHome {
-  padding: 150px;
-  font-size: 60px;
+.main {
+  padding: 40px;
+  padding-top: 20px;
+  font-size: 40px;
+  font-family: 'Inter', sans-serif;
+}
+.main-header {
   display: flex;
-  flex-direction: column;
-  width: auto;
-  margin: auto;
+  flex-direction: row;
+  font-weight: bold;
+}
+.main-content {
+  display: flex;
+  flex-direction: row;
+}
+.main-content-title {
+  font-weight: bold;
+  color: #ff8601;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.existingListForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
 }
 
-.homeButton {
-  margin: 30px;
-  padding: 15px 32px;
-  font-size: 30px;
+.newListButton {
+  letter-spacing: -0.408px;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #ff8601;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  border-width: 1px;
 }
 
-.inputHome {
+.inputExistingList {
   font-size: 30px;
+  border-radius: 15px;
+  border-width: 0.5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 20px;
 }
-
+.existingListButton {
+  letter-spacing: -0.408px;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #ff8601;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 15px;
+  border-width: 1px;
+}
 .validation {
   font-size: 20px;
   color: red;
@@ -71,6 +138,10 @@
 
 .not-soon {
   background: indianred;
+}
+
+.h1_standout {
+  color: #ff8601;
 }
 
 #list-page-content {
