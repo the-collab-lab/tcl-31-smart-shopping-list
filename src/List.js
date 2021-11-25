@@ -18,6 +18,7 @@ import MuiList from '@mui/material/List';
 import { orange, red, lightGreen, grey } from '@mui/material/colors';
 import {
   Box,
+  Card,
   Checkbox,
   IconButton,
   ListItem,
@@ -213,51 +214,67 @@ export function List() {
           ></ClearIcon>
         </IconButton>
       </Box>
-      <MuiList sx={{ p: 0, m: 0 }}>
-        {items &&
-          items
-            .filter((item) =>
-              item.name.toLowerCase().includes(filterItem.toLowerCase()),
-            )
-            .sort(itemSort)
-            .map((item) => {
-              return (
-                <ListItem
-                  key={item.id}
-                  secondaryAction={
-                    <IconButton aria-label={getClassName(item)}></IconButton>
-                  }
-                >
-                  <ListItemButton role={undefined} sx={{ p: 0, m: 0 }}>
-                    <ListItemIcon>
-                      <Checkbox
-                        dge="start"
-                        value={item.name}
-                        id={`custom-checkbox-${item.id}`}
-                        checked={
-                          !!item.lastPurchasedDate &&
-                          new Date() - item.lastPurchasedDate < ONE_DAY
-                        }
-                        onChange={(e) => handleChange(item.id, e)}
-                        defaultChecked
-                        sx={{
-                          color: getClassName(item)[800],
-                          '&.MuiCheckbox-root': {
-                            color: getClassName(item)[600],
-                          },
-                        }}
-                      ></Checkbox>
-                    </ListItemIcon>
-                    <ListItemText
-                      id={item.id}
-                      primary={item.name}
-                    ></ListItemText>
-                    <DeleteButton id={item.id} />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-      </MuiList>
+      <Card>
+        <Box>
+          <MuiList sx={{ p: 0, m: 0 }}>
+            {items &&
+              items
+                .filter((item) =>
+                  item.name.toLowerCase().includes(filterItem.toLowerCase()),
+                )
+                .sort(itemSort)
+                .map((item) => {
+                  return (
+                    <ListItem
+                      key={item.id}
+                      secondaryAction={
+                        <IconButton
+                          aria-label={getClassName(item)}
+                        ></IconButton>
+                      }
+                    >
+                      <ListItemButton role={undefined} sx={{ p: 0, m: 0 }}>
+                        <ListItemIcon>
+                          <Checkbox
+                            dge="start"
+                            value={item.name}
+                            id={`custom-checkbox-${item.id}`}
+                            checked={
+                              !!item.lastPurchasedDate &&
+                              new Date() - item.lastPurchasedDate < ONE_DAY
+                            }
+                            onChange={(e) => handleChange(item.id, e)}
+                            defaultChecked
+                            sx={{
+                              color: getClassName(item)[800],
+                              '&.MuiCheckbox-root': {
+                                color: getClassName(item)[600],
+                              },
+                            }}
+                          ></Checkbox>
+                        </ListItemIcon>
+                        <ListItemText
+                          id={item.id}
+                          primary={item.name}
+                        ></ListItemText>
+                        <DeleteButton id={item.id} />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
+          </MuiList>
+        </Box>
+        <CardMedia
+          component="img"
+          image="/img/orange.jpg"
+          sx={{
+            height: '30%',
+            width: '30%',
+            display: 'flex',
+            float: 'right',
+          }}
+        />
+      </Card>
     </Box>
   ) : (
     <>
