@@ -83,7 +83,7 @@ function AddForm() {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div id="add-form-content">
-        <h2>What do you need?</h2>
+        <h1>What do you need?</h1>
         {/* Begin the MaterialUI */}
         <Box
           sx={{
@@ -105,7 +105,7 @@ function AddForm() {
 
         <div>
           <FormControl component="fieldset">
-            <h3>When do you need it?</h3>
+            <h1>When do you need it?</h1>
 
             <RadioGroup
               row

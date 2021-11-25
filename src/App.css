@@ -141,6 +141,18 @@
   background: indianred;
 }
 
+h1 {
+  font-size: 1.5em;
+}
+
+h2 {
+  font-size: 1em;
+}
+
+p {
+  font-size: 0.5em;
+}
+
 .h1_standout {
   color: #ff8601;
 }
