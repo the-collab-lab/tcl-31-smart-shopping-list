@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import AddForm from './AddForm';
 import MuiList from '@mui/material/List';
-import { orange, red, lightGreen, grey } from '@mui/material/colors';
+import { orange, red, green, grey } from '@mui/material/colors';
 import {
   Box,
   Checkbox,
@@ -27,6 +27,9 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+
+// const newGreen = green[800];
+// const primary = green[800];
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -45,7 +48,9 @@ const getClassName = (item) => {
     return grey;
   }
   if (daysToBuy <= 7) {
-    return lightGreen;
+    return green;
+    // return newGreen;
+    // return primary
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
     return orange;
