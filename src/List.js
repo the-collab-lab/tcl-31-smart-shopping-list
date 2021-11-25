@@ -25,6 +25,7 @@ import {
   ListItemIcon,
   ListItemText,
   TextField,
+  Button,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -58,6 +59,7 @@ export function List() {
   const [reRender, setReRender] = useState();
   const history = useHistory();
   const [filterItem, setFilterItem] = useState('');
+  const [listIsShown, setListIsShown] = useState(false);
 
   //only change to 60*60*24  for 24 hours
   const ONE_DAY = 60 * 60 * 24 * 1000;
@@ -175,7 +177,7 @@ export function List() {
     }
   };
 
-  return items.length ? (
+  return listIsShown || items.length ? (
     <>
       <AddForm />
       <Box
@@ -191,7 +193,6 @@ export function List() {
         <Box
           sx={{
             margin: 'auto',
-
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-evenly',
@@ -260,13 +261,31 @@ export function List() {
     </>
   ) : (
     <>
-      <p>
-        Welcome, friend! Your list is currently empty. Click below to add a new
-        item!
-      </p>
-      <Link to={`/add`}>
-        <button>Add item</button>
-      </Link>
+      <Box
+        sx={{
+          width: 368,
+          display: 'flex',
+          margin: 'auto',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          '& > :not(style)': { m: 1 },
+        }}
+      >
+        <h3>
+          Welcome, friend! Your list is currently empty. Click below to add your
+          first item!
+        </h3>
+
+        <Button
+          variant="outlined"
+          type="submit"
+          id="submit-item"
+          onClick={() => setListIsShown(true)}
+        >
+          {' '}
+          Get Started
+        </Button>
+      </Box>
       {/* <NavigationMenu /> */}
     </>
   );
