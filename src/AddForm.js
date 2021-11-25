@@ -122,9 +122,9 @@ function AddForm() {
                     name="days"
                     checked={days === 7}
                     sx={{
-                      color: lightGreen[800],
+                      color: '#2e7d32',
                       '&.Mui-checked': {
-                        color: lightGreen[500],
+                        color: '#2e7d32',
                       },
                     }}
                   />
@@ -139,9 +139,9 @@ function AddForm() {
                     name="days"
                     checked={days === 14}
                     sx={{
-                      color: orange[800],
+                      color: '#ff8601',
                       '&.Mui-checked': {
-                        color: orange[500],
+                        color: '#ff8601',
                       },
                     }}
                   />
@@ -156,9 +156,9 @@ function AddForm() {
                     name="days"
                     checked={days === 30}
                     sx={{
-                      color: red[800],
+                      color: '#c62828',
                       '&.Mui-checked': {
-                        color: red[500],
+                        color: '#c62828',
                       },
                     }}
                   />
