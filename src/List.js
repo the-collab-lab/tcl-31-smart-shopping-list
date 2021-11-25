@@ -27,6 +27,7 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import CardMedia from '@mui/material/CardMedia';
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -95,7 +96,6 @@ export function List() {
           days,
         };
       });
-
       setItems(items);
     });
     return unsubscribe;
@@ -176,88 +176,89 @@ export function List() {
   };
 
   return items.length ? (
-    <>
+    <Box
+      sx={{
+        width: '45%',
+        mt: '2%',
+        ml: '20%',
+        p: '0.75em',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        '& > :not(style)': { m: 1 },
+      }}
+    >
       <AddForm />
       <Box
         sx={{
-          width: 700,
+          width: '88%',
           display: 'flex',
           margin: 'auto',
-          flexDirection: 'column',
-          justifyContent: 'center',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
           '& > :not(style)': { m: 1 },
         }}
       >
-        <Box
-          sx={{
-            margin: 'auto',
-
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignContent: 'start',
-          }}
-        >
-          <TextField
-            helperText="filterItems"
-            value={filterItem}
-            label="Start typing here..."
-            onChange={(event) => setFilterItem(event.target.value)}
-          ></TextField>
-          <IconButton aria-label="delete" size="large">
-            <ClearIcon
-              sx={{ color: red[500] }}
-              onClick={() => setFilterItem('')}
-            ></ClearIcon>
-          </IconButton>
-        </Box>
-        <MuiList>
-          {items &&
-            items
-              .filter((item) =>
-                item.name.toLowerCase().includes(filterItem.toLowerCase()),
-              )
-              .sort(itemSort)
-              .map((item) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    secondaryAction={
-                      <IconButton aria-label={getClassName(item)}></IconButton>
-                    }
-                  >
-                    <ListItemButton role={undefined}>
-                      <ListItemIcon>
-                        <Checkbox
-                          dge="start"
-                          value={item.name}
-                          id={`custom-checkbox-${item.id}`}
-                          checked={
-                            !!item.lastPurchasedDate &&
-                            new Date() - item.lastPurchasedDate < ONE_DAY
-                          }
-                          onChange={(e) => handleChange(item.id, e)}
-                          defaultChecked
-                          sx={{
-                            color: getClassName(item)[800],
-                            '&.MuiCheckbox-root': {
-                              color: getClassName(item)[600],
-                            },
-                          }}
-                        ></Checkbox>
-                      </ListItemIcon>
-                      <ListItemText
-                        id={item.id}
-                        primary={item.name}
-                      ></ListItemText>
-                      <DeleteButton id={item.id} />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-        </MuiList>
+        <TextField
+          helperText="filterItems"
+          value={filterItem}
+          label="Start typing here..."
+          onChange={(event) => setFilterItem(event.target.value)}
+          fullWidth="true"
+        ></TextField>
+        <IconButton aria-label="delete" size="large">
+          <ClearIcon
+            sx={{ color: red[500] }}
+            onClick={() => setFilterItem('')}
+          ></ClearIcon>
+        </IconButton>
       </Box>
-    </>
+      <MuiList sx={{ p: 0, m: 0 }}>
+        {items &&
+          items
+            .filter((item) =>
+              item.name.toLowerCase().includes(filterItem.toLowerCase()),
+            )
+            .sort(itemSort)
+            .map((item) => {
+              return (
+                <ListItem
+                  key={item.id}
+                  secondaryAction={
+                    <IconButton aria-label={getClassName(item)}></IconButton>
+                  }
+                >
+                  <ListItemButton role={undefined} sx={{ p: 0, m: 0 }}>
+                    <ListItemIcon>
+                      <Checkbox
+                        dge="start"
+                        value={item.name}
+                        id={`custom-checkbox-${item.id}`}
+                        checked={
+                          !!item.lastPurchasedDate &&
+                          new Date() - item.lastPurchasedDate < ONE_DAY
+                        }
+                        onChange={(e) => handleChange(item.id, e)}
+                        defaultChecked
+                        sx={{
+                          color: getClassName(item)[800],
+                          '&.MuiCheckbox-root': {
+                            color: getClassName(item)[600],
+                          },
+                        }}
+                      ></Checkbox>
+                    </ListItemIcon>
+                    <ListItemText
+                      id={item.id}
+                      primary={item.name}
+                    ></ListItemText>
+                    <DeleteButton id={item.id} />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
+      </MuiList>
+    </Box>
   ) : (
     <>
       <p>
