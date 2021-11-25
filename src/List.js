@@ -27,6 +27,7 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import './App.css';
 
 // const newGreen = green[800];
 // const primary = green[800];
