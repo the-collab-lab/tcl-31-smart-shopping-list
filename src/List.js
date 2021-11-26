@@ -20,12 +20,14 @@ import {
   Box,
   Card,
   Checkbox,
+  FormControlLabel,
   IconButton,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   TextField,
+  Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import CardMedia from '@mui/material/CardMedia';
@@ -180,8 +182,8 @@ export function List() {
     <Box
       sx={{
         width: '45%',
-        mt: '2%',
-        ml: '20%',
+        minWidth: '500px',
+        m: '0 auto',
         p: '0.75em',
         display: 'flex',
         flexDirection: 'column',
@@ -189,81 +191,100 @@ export function List() {
         '& > :not(style)': { m: 1 },
       }}
     >
-      <AddForm />
       <Box
         sx={{
           width: '100%',
           display: 'flex',
-          margin: 'auto',
           flexDirection: 'row',
-          justifyContent: 'space-around',
-          '& > :not(style)': { m: 1 },
+          justifyContent: 'center',
         }}
       >
-        <TextField
-          helperText="filterItems"
-          value={filterItem}
-          label="Start typing here..."
-          onChange={(event) => setFilterItem(event.target.value)}
-          fullWidth="true"
-        ></TextField>
-        <IconButton aria-label="delete" size="large">
-          <ClearIcon
-            sx={{ color: red[500] }}
-            onClick={() => setFilterItem('')}
-          ></ClearIcon>
-        </IconButton>
+        <CardMedia
+          component="img"
+          image="/img/wholeorange.jpg"
+          sx={{
+            height: '10%',
+            width: '10%',
+          }}
+        />
+        <Typography variant="h5" fontFamily={'Inter, sans-serif'} mt={'3%'}>
+          Smart Shopping List
+        </Typography>
       </Box>
+
+      <AddForm />
+
       <Card>
-        <Box>
-          <MuiList sx={{ p: 0, m: 0 }}>
-            {items &&
-              items
-                .filter((item) =>
-                  item.name.toLowerCase().includes(filterItem.toLowerCase()),
-                )
-                .sort(itemSort)
-                .map((item) => {
-                  return (
-                    <ListItem
-                      key={item.id}
-                      secondaryAction={
-                        <IconButton
-                          aria-label={getClassName(item)}
-                        ></IconButton>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            margin: 'auto',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            '& > :not(style)': { m: 1 },
+          }}
+        >
+          <TextField
+            value={filterItem}
+            label="FilterItems..."
+            onChange={(event) => setFilterItem(event.target.value)}
+            fullWidth="true"
+          ></TextField>
+          <IconButton aria-label="delete" size="large">
+            <ClearIcon
+              sx={{ color: red[500] }}
+              onClick={() => setFilterItem('')}
+            ></ClearIcon>
+          </IconButton>
+        </Box>
+
+        <MuiList sx={{ p: 0, m: 0 }}>
+          {items &&
+            items
+              .filter((item) =>
+                item.name.toLowerCase().includes(filterItem.toLowerCase()),
+              )
+              .sort(itemSort)
+              .map((item, index) => {
+                return (
+                  <ListItem
+                    key={item.id}
+                    aria-label={getClassName(item)}
+                    sx={index % 2 && { background: 'rgba(238,182,34,0.1)' }}
+                    secondaryAction={<DeleteButton id={item.id} />}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          dge="start"
+                          value={item.name}
+                          id={`custom-checkbox-${item.id}`}
+                          checked={
+                            !!item.lastPurchasedDate &&
+                            new Date() - item.lastPurchasedDate < ONE_DAY
+                          }
+                          onChange={(e) => handleChange(item.id, e)}
+                          sx={{
+                            color: getClassName(item)[800],
+                            '&.MuiCheckbox-root': {
+                              color: getClassName(item)[600],
+                            },
+                          }}
+                        ></Checkbox>
                       }
-                    >
-                      <ListItemButton role={undefined} sx={{ p: 0, m: 0 }}>
-                        <ListItemIcon>
-                          <Checkbox
-                            dge="start"
-                            value={item.name}
-                            id={`custom-checkbox-${item.id}`}
-                            checked={
-                              !!item.lastPurchasedDate &&
-                              new Date() - item.lastPurchasedDate < ONE_DAY
-                            }
-                            onChange={(e) => handleChange(item.id, e)}
-                            defaultChecked
-                            sx={{
-                              color: getClassName(item)[800],
-                              '&.MuiCheckbox-root': {
-                                color: getClassName(item)[600],
-                              },
-                            }}
-                          ></Checkbox>
-                        </ListItemIcon>
+                      label={
                         <ListItemText
                           id={item.id}
                           primary={item.name}
                         ></ListItemText>
-                        <DeleteButton id={item.id} />
-                      </ListItemButton>
-                    </ListItem>
-                  );
-                })}
-          </MuiList>
-        </Box>
+                      }
+                    />
+                  </ListItem>
+                );
+              })}
+        </MuiList>
+
         <CardMedia
           component="img"
           image="/img/orange.jpg"

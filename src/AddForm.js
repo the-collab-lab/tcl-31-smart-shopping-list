@@ -14,7 +14,7 @@ import {
   Radio,
   TextField,
   Box,
-  Button,
+  Alert,
   IconButton,
   Typography,
 } from '@mui/material';
@@ -85,116 +85,121 @@ function AddForm() {
 
   return (
     <FormControl>
-      {/* <div id="add-form-content">*/}
-      {/*  <h2>What do you need?</h2>*/}
-      {/* Begin the MaterialUI */}
       <Box
         sx={{
           width: '100%',
           border: 1,
           display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
           '& > :not(style)': { m: 1 },
         }}
       >
-        <Box sx={{ width: '40%', display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
-            What do you need?
-          </Typography>
-          <TextField
-            // helperText="What do you need"
-            id="demo-helper-text-aligned"
-            onChange={(e) => setItem(e.target.value)}
-            label="type your item here"
-            fullWidth="true"
-          />
-        </Box>
-
-        <IconButton
-          color="primary"
-          aria-label="add to shopping cart"
-          size="large"
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            '& > :not(style)': { m: 1 },
+          }}
         >
-          <AddShoppingCartIcon onClick={(e) => handleSubmit(e)} />
-        </IconButton>
+          <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+            <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
+              What do you need?
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+              <TextField
+                id="demo-helper-text-aligned"
+                onChange={(e) => {
+                  setItem(e.target.value);
+                  setErrorMessage('');
+                }}
+                label="Type your item here"
+                fullWidth="true"
+              />
+              <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                size="large"
+              >
+                <AddShoppingCartIcon onClick={(e) => handleSubmit(e)} />
+              </IconButton>
+            </Box>
+          </Box>
 
-        {/* finish the materia UI*/}
-        <FormControl component="fieldset">
-          {/* <h3>When do you need it?</h3>*/}
-          <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
-            When do you need it?
-          </Typography>
-          <RadioGroup
-            row
-            aria-label="days"
-            value="7"
-            name="radio-buttons-group"
-            onChange={handleChange}
-          >
-            <FormControlLabel
-              value="7"
-              control={
-                <Radio
-                  id="soon"
-                  name="days"
-                  checked={days === 7}
-                  sx={{
-                    color: lightGreen[800],
-                    '&.Mui-checked': {
-                      color: lightGreen[500],
-                    },
-                  }}
+          <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+            <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
+              When do you need it?
+            </Typography>
+            <FormControl component="fieldset">
+              <RadioGroup
+                row
+                aria-label="days"
+                value="7"
+                name="radio-buttons-group"
+                onChange={handleChange}
+              >
+                <FormControlLabel
+                  value="7"
+                  control={
+                    <Radio
+                      id="soon"
+                      name="days"
+                      checked={days === 7}
+                      sx={{
+                        color: lightGreen[800],
+                        '&.Mui-checked': {
+                          color: lightGreen[500],
+                        },
+                      }}
+                    />
+                  }
+                  label="This week"
                 />
-              }
-              label="This week"
-            />
-            <FormControlLabel
-              value="14"
-              control={
-                <Radio
-                  id="kind-of-soon"
-                  name="days"
-                  checked={days === 14}
-                  sx={{
-                    color: orange[800],
-                    '&.Mui-checked': {
-                      color: orange[500],
-                    },
-                  }}
+                <FormControlLabel
+                  value="14"
+                  control={
+                    <Radio
+                      id="kind-of-soon"
+                      name="days"
+                      checked={days === 14}
+                      sx={{
+                        color: orange[800],
+                        '&.Mui-checked': {
+                          color: orange[500],
+                        },
+                      }}
+                    />
+                  }
+                  label="Next week"
                 />
-              }
-              label="Next week"
-            />
-            <FormControlLabel
-              value="30"
-              control={
-                <Radio
-                  id="not-soon"
-                  name="days"
-                  checked={days === 30}
-                  sx={{
-                    color: red[800],
-                    '&.Mui-checked': {
-                      color: red[500],
-                    },
-                  }}
+                <FormControlLabel
+                  value="30"
+                  control={
+                    <Radio
+                      id="not-soon"
+                      name="days"
+                      checked={days === 30}
+                      sx={{
+                        color: red[800],
+                        '&.Mui-checked': {
+                          color: red[500],
+                        },
+                      }}
+                    />
+                  }
+                  label="Next month"
                 />
-              }
-              label="Next month"
-            />
-          </RadioGroup>
-        </FormControl>
+              </RadioGroup>
+            </FormControl>
+          </Box>
+        </Box>
+        {errorMessage !== '' && (
+          <Box>
+            <Alert severity="error">{errorMessage}</Alert>
+          </Box>
+        )}
       </Box>
-      {/*        <Button variant="outlined" type="submit" id="submit-item">
-          {' '}
-          + Add Item
-        </Button>*/}
-
-      {errorMessage !== '' && (
-        <div className="error-message">{errorMessage}</div>
-      )}
-      {/* </div>*/}
     </FormControl>
   );
 }
