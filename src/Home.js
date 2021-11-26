@@ -50,11 +50,10 @@ export function Home() {
             <div className="flex-items">
               <h2 className="main-content-title">How it works</h2>
               <p>
-                Just add an item to your list, and select it when you want to
-                buy again. After a couple times, your smart list will predict
-                when you need to buy it again and rearranges the list! The item
-                appears right where it needs to be so you don't forget to buy
-                when the time is right!
+                Add an item to your list, then select it when you want to buy
+                again. After a couple purchases, your smart list will predict
+                when you need to buy it again. The item appears right where it
+                needs to be on your list so you don't forget!
               </p>
             </div>
           </div>
