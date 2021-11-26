@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import AddForm from './AddForm';
 import MuiList from '@mui/material/List';
-import { orange, red, lightGreen, grey } from '@mui/material/colors';
+import { orange, red, green, grey } from '@mui/material/colors';
 import {
   Box,
   Card,
@@ -31,6 +31,10 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import CardMedia from '@mui/material/CardMedia';
+import './App.css';
+
+// const newGreen = green[800];
+// const primary = green[800];
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -49,7 +53,9 @@ const getClassName = (item) => {
     return grey;
   }
   if (daysToBuy <= 7) {
-    return lightGreen;
+    return green;
+    // return newGreen;
+    // return primary
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
     return orange;
@@ -62,6 +68,7 @@ export function List() {
   const [reRender, setReRender] = useState();
   const history = useHistory();
   const [filterItem, setFilterItem] = useState('');
+  const [listIsShown, setListIsShown] = useState(false);
 
   //only change to 60*60*24  for 24 hours
   const ONE_DAY = 60 * 60 * 24 * 1000;
@@ -177,7 +184,6 @@ export function List() {
       );
     }
   };
-
   return items.length ? (
     <Box
       sx={{
@@ -299,13 +305,31 @@ export function List() {
     </Box>
   ) : (
     <>
-      <p>
-        Welcome, friend! Your list is currently empty. Click below to add a new
-        item!
-      </p>
-      <Link to={`/add`}>
-        <button>Add item</button>
-      </Link>
+      <Box
+        sx={{
+          width: 368,
+          display: 'flex',
+          margin: 'auto',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          '& > :not(style)': { m: 1 },
+        }}
+      >
+        <h3>
+          Welcome, friend! Your list is currently empty. Click below to add your
+          first item!
+        </h3>
+
+        <Button
+          variant="outlined"
+          type="submit"
+          id="submit-item"
+          onClick={() => setListIsShown(true)}
+        >
+          {' '}
+          Get Started
+        </Button>
+      </Box>
       {/* <NavigationMenu /> */}
     </>
   );

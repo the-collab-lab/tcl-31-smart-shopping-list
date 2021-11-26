@@ -126,7 +126,6 @@ function AddForm() {
               </IconButton>
             </Box>
           </Box>
-
           <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
             <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
               When do you need it?
