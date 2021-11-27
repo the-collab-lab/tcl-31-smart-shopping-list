@@ -210,11 +210,11 @@ export function List() {
           component="img"
           image="/img/wholeorange.jpg"
           sx={{
-            height: '10%',
-            width: '10%',
+            height: '7%',
+            width: '7%',
           }}
         />
-        <Typography variant="h5" fontFamily={'Inter, sans-serif'} mt={'3%'}>
+        <Typography variant="h6" fontFamily={'Inter, sans-serif'} mt={'1%'}>
           Smart Shopping List
         </Typography>
       </Box>
@@ -234,7 +234,7 @@ export function List() {
         >
           <TextField
             value={filterItem}
-            label="FilterItems..."
+            label="Filter items by typing here..."
             onChange={(event) => setFilterItem(event.target.value)}
             fullWidth="true"
           ></TextField>

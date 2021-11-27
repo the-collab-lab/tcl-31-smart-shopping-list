@@ -17,6 +17,7 @@ import {
   Alert,
   IconButton,
   Typography,
+  Card,
 } from '@mui/material';
 import { lightGreen, orange, red } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -85,10 +86,9 @@ function AddForm() {
 
   return (
     <FormControl>
-      <Box
+      <Card
         sx={{
           width: '100%',
-          border: 1,
           display: 'flex',
           flexDirection: 'column',
           '& > :not(style)': { m: 1 },
@@ -198,7 +198,7 @@ function AddForm() {
             <Alert severity="error">{errorMessage}</Alert>
           </Box>
         )}
-      </Box>
+      </Card>
     </FormControl>
   );
 }
