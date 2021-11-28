@@ -185,7 +185,8 @@ export function List() {
       );
     }
   };
-  return items.length ? (
+
+  return listIsShown || items.length ? (
     <Box
       sx={{
         width: '45%',
