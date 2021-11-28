@@ -309,22 +309,19 @@ export function List() {
           flexDirection: 'column',
           justifyContent: 'center',
           '& > :not(style)': { m: 1 },
+          alignItems: 'center',
         }}
       >
         <h3>
           Welcome, friend! Your list is currently empty. Click below to add your
           first item!
         </h3>
-
-        <Button
-          variant="outlined"
-          type="submit"
-          id="submit-item"
+        <button
+          className="emptyListButton"
           onClick={() => setListIsShown(true)}
         >
-          {' '}
           Get Started
-        </Button>
+        </button>
       </Box>
     </>
   );
