@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { List } from './List';
-import { Add } from './Add';
 import { Home } from './Home';
 
 function App() {
@@ -17,9 +16,6 @@ function App() {
         </Route>
         <Route path="/list">
           <List />
-        </Route>
-        <Route path="/add">
-          <Add />
         </Route>
       </Switch>
     </Router>
