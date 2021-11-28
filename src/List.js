@@ -9,8 +9,6 @@ import {
 } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
-import { Link } from 'react-router-dom';
-// import { NavigationMenu } from './NavigationMenu';
 import { useHistory } from 'react-router-dom';
 import DeleteButton from './DeleteButton';
 import AddForm from './AddForm';
@@ -34,9 +32,6 @@ import ClearIcon from '@mui/icons-material/Clear';
 import CardMedia from '@mui/material/CardMedia';
 import './App.css';
 
-// const newGreen = green[800];
-// const primary = green[800];
-
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
 const daysSinceLastPurchaseOrCreationTime = (item) =>
@@ -55,8 +50,6 @@ const getClassName = (item) => {
   }
   if (daysToBuy <= 7) {
     return green;
-    // return newGreen;
-    // return primary
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
     return orange;
@@ -333,7 +326,6 @@ export function List() {
           Get Started
         </Button>
       </Box>
-      {/* <NavigationMenu /> */}
     </>
   );
 }
