@@ -18,16 +18,20 @@ import MuiList from '@mui/material/List';
 import { orange, red, green, grey } from '@mui/material/colors';
 import {
   Box,
+  Button,
+  Card,
   Checkbox,
+  FormControlLabel,
   IconButton,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   TextField,
-  Button,
+  Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import CardMedia from '@mui/material/CardMedia';
 import './App.css';
 
 // const newGreen = green[800];
@@ -103,7 +107,6 @@ export function List() {
           days,
         };
       });
-
       setItems(items);
     });
     return unsubscribe;
@@ -184,57 +187,84 @@ export function List() {
   };
 
   return listIsShown || items.length ? (
-    <>
-      <AddForm />
+    <Box
+      sx={{
+        width: '45%',
+        minWidth: '500px',
+        m: '0 auto',
+        p: '0.75em',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        '& > :not(style)': { m: 1 },
+      }}
+    >
       <Box
         sx={{
-          width: 700,
+          width: '100%',
           display: 'flex',
-          margin: 'auto',
-          flexDirection: 'column',
+          flexDirection: 'row',
           justifyContent: 'center',
-          '& > :not(style)': { m: 1 },
         }}
       >
+        <CardMedia
+          component="img"
+          image="/img/wholeorange.jpg"
+          sx={{
+            height: '7%',
+            width: '7%',
+          }}
+        />
+        <Typography variant="h6" fontFamily={'Inter, sans-serif'} mt={'1%'}>
+          Smart Shopping List
+        </Typography>
+      </Box>
+
+      <AddForm />
+
+      <Card>
         <Box
           sx={{
-            margin: 'auto',
+            width: '100%',
             display: 'flex',
+            margin: 'auto',
             flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignContent: 'start',
+            justifyContent: 'space-around',
+            '& > :not(style)': { m: 1 },
           }}
         >
           <TextField
-            helperText="filterItems"
             value={filterItem}
-            label="Start typing here..."
+            label="Filter items by typing here..."
             onChange={(event) => setFilterItem(event.target.value)}
+            fullWidth={true}
           ></TextField>
-          <IconButton aria-label="delete" size="large">
-            <ClearIcon
-              sx={{ color: red[500] }}
-              onClick={() => setFilterItem('')}
-            ></ClearIcon>
+          <IconButton
+            aria-label="delete"
+            size="large"
+            onClick={() => setFilterItem('')}
+          >
+            <ClearIcon sx={{ color: red[500] }}></ClearIcon>
           </IconButton>
         </Box>
-        <MuiList>
+
+        <MuiList sx={{ p: 0, m: 0 }}>
           {items &&
             items
               .filter((item) =>
                 item.name.toLowerCase().includes(filterItem.toLowerCase()),
               )
               .sort(itemSort)
-              .map((item) => {
+              .map((item, index) => {
                 return (
                   <ListItem
                     key={item.id}
-                    secondaryAction={
-                      <IconButton aria-label={getClassName(item)}></IconButton>
-                    }
+                    aria-label={getClassName(item)}
+                    sx={index % 2 ? { background: 'rgba(238,182,34,0.1)' } : {}}
+                    secondaryAction={<DeleteButton id={item.id} />}
                   >
-                    <ListItemButton role={undefined}>
-                      <ListItemIcon>
+                    <FormControlLabel
+                      control={
                         <Checkbox
                           dge="start"
                           value={item.name}
@@ -244,7 +274,6 @@ export function List() {
                             new Date() - item.lastPurchasedDate < ONE_DAY
                           }
                           onChange={(e) => handleChange(item.id, e)}
-                          defaultChecked
                           sx={{
                             color: getClassName(item)[800],
                             '&.MuiCheckbox-root': {
@@ -252,19 +281,31 @@ export function List() {
                             },
                           }}
                         ></Checkbox>
-                      </ListItemIcon>
-                      <ListItemText
-                        id={item.id}
-                        primary={item.name}
-                      ></ListItemText>
-                      <DeleteButton id={item.id} />
-                    </ListItemButton>
+                      }
+                      label={
+                        <ListItemText
+                          id={item.id}
+                          primary={item.name}
+                        ></ListItemText>
+                      }
+                    />
                   </ListItem>
                 );
               })}
         </MuiList>
-      </Box>
-    </>
+
+        <CardMedia
+          component="img"
+          image="/img/orange.jpg"
+          sx={{
+            height: '30%',
+            width: '30%',
+            display: 'flex',
+            float: 'right',
+          }}
+        />
+      </Card>
+    </Box>
   ) : (
     <>
       <Box

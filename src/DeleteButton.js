@@ -11,8 +11,12 @@ export default function DeleteButton({ id }) {
   };
 
   return (
-    <IconButton aria-label="delete" size="large">
-      <DeleteIcon onClick={() => handleDelete(id)} />
+    <IconButton
+      aria-label="delete"
+      size="large"
+      onClick={() => handleDelete(id)}
+    >
+      <DeleteIcon />
     </IconButton>
   );
 }
