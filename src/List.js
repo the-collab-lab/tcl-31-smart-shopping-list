@@ -237,13 +237,14 @@ export function List() {
             value={filterItem}
             label="Filter items by typing here..."
             onChange={(event) => setFilterItem(event.target.value)}
-            fullWidth="true"
+            fullWidth={true}
           ></TextField>
-          <IconButton aria-label="delete" size="large">
-            <ClearIcon
-              sx={{ color: red[500] }}
-              onClick={() => setFilterItem('')}
-            ></ClearIcon>
+          <IconButton
+            aria-label="delete"
+            size="large"
+            onClick={() => setFilterItem('')}
+          >
+            <ClearIcon sx={{ color: red[500] }}></ClearIcon>
           </IconButton>
         </Box>
 
@@ -259,7 +260,7 @@ export function List() {
                   <ListItem
                     key={item.id}
                     aria-label={getClassName(item)}
-                    sx={index % 2 && { background: 'rgba(238,182,34,0.1)' }}
+                    sx={index % 2 ? { background: 'rgba(238,182,34,0.1)' } : {}}
                     secondaryAction={<DeleteButton id={item.id} />}
                   >
                     <FormControlLabel

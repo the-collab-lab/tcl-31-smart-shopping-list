@@ -115,14 +115,16 @@ function AddForm() {
                   setErrorMessage('');
                 }}
                 label="Type your item here"
-                fullWidth="true"
+                fullWidth={true}
+                value={item}
               />
               <IconButton
                 color="primary"
                 aria-label="add to shopping cart"
                 size="large"
+                onClick={(e) => handleSubmit(e)}
               >
-                <AddShoppingCartIcon onClick={(e) => handleSubmit(e)} />
+                <AddShoppingCartIcon />
               </IconButton>
             </Box>
           </Box>
