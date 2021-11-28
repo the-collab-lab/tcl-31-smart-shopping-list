@@ -82,6 +82,7 @@ function AddForm() {
       creationTime: new Date().getTime(),
       userToken,
     });
+    setItem('');
   }
 
   return (
