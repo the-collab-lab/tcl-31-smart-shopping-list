@@ -45,17 +45,15 @@ const getClassName = (item) => {
     item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item);
 
   if (itemIsInactive(item)) {
-    return grey;
+    return grey[500];
   }
   if (daysToBuy <= 7) {
-    return green;
-    // return newGreen;
-    // return primary
+    return green[800];
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
-    return orange;
+    return orange[400];
   }
-  return red;
+  return red[800];
 };
 
 export function List() {
@@ -244,9 +242,9 @@ export function List() {
                           onChange={(e) => handleChange(item.id, e)}
                           defaultChecked
                           sx={{
-                            color: getClassName(item)[800],
+                            color: getClassName(item),
                             '&.MuiCheckbox-root': {
-                              color: getClassName(item)[600],
+                              color: getClassName(item),
                             },
                           }}
                         ></Checkbox>
