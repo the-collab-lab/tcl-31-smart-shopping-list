@@ -28,8 +28,7 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-// const newGreen = green[800];
-// const primary = green[800];
+const newOrange = orange['A400'];
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
@@ -51,7 +50,7 @@ const getClassName = (item) => {
     return green[800];
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
-    return orange[400];
+    return newOrange;
   }
   return red[800];
 };
