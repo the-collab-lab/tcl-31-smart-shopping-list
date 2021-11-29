@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
 }
 
 .flex-items {
@@ -59,28 +60,41 @@
   font-size: 40px;
   font-family: 'Inter', sans-serif;
 }
+.main-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
 .main-header {
   display: flex;
   flex-direction: row;
   font-weight: bold;
+  align-items: center;
+}
+.main-header-title {
+  text-align: center;
 }
 .main-content {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 .main-content-title {
   font-weight: bold;
   color: #ff8601;
+  text-align: center;
 }
 
 .buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 .existingListForm {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -96,16 +110,31 @@
   font-weight: bold;
   font-size: 20px;
   border-width: 1px;
+  margin: 20px;
+  width: 300px;
+}
+
+.emptyListButton {
+  letter-spacing: -0.408px;
+  color: #ffffff;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #ff8601;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 20px;
+  border-width: 1px;
+  width: 200px;
 }
 
 .inputExistingList {
-  font-size: 30px;
+  font-size: 20px;
   border-radius: 15px;
   border-width: 0.5px;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-right: 20px;
+  padding: 12px;
+  margin: 20px;
+  width: 300px;
 }
 .existingListButton {
   letter-spacing: -0.408px;
@@ -114,10 +143,11 @@
   background: #ff8601;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-  padding: 12px;
+  padding: 15px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   border-width: 1px;
+  width: 300px;
 }
 .validation {
   font-size: 20px;
@@ -140,6 +170,18 @@
   background: indianred;
 }
 
+h1 {
+  font-size: 1.5em;
+}
+
+h2 {
+  font-size: 1em;
+}
+
+p {
+  font-size: 0.5em;
+}
+
 .h1_standout {
   color: #ff8601;
 }
@@ -157,4 +199,26 @@
 #submit-item {
   margin: auto;
   width: 100%;
+}
+
+@media only screen and (max-width: 1062px) {
+  .main-header {
+    flex-direction: column;
+  }
+  .main-content {
+    flex-direction: column-reverse;
+  }
+  .buttons {
+    flex-direction: column;
+  }
+  .existingListForm {
+    flex-direction: column;
+  }
+
+  .inputExistingList {
+    margin-bottom: 10px;
+  }
+  .main-header-container {
+    width: 100%;
+  }
 }
