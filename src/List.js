@@ -208,7 +208,7 @@ export function List() {
           ></TextField>
           <IconButton aria-label="delete" size="large">
             <ClearIcon
-              sx={{ color: red[500] }}
+              sx={{ color: red[800] }}
               onClick={() => setFilterItem('')}
             ></ClearIcon>
           </IconButton>
