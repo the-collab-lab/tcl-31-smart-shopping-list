@@ -24,13 +24,15 @@ export function Home() {
       <Redirect to="/list" />
     ) : (
       <>
-        <nav className="navbar">Smart Shopping List (insert logo)</nav>
+        <nav className="navbar">Smart Shopping List</nav>
         <div className="main">
           <div className="main-header">
-            <h1 className="flex-items">
-              Remember what to buy, <span className="h1_standout">exactly</span>{' '}
-              when you need it
-            </h1>
+            <div className="main-header-container">
+              <h1 className="flex-items main-header-title">
+                Remember what to buy,{' '}
+                <span className="h1_standout">exactly</span> when you need it
+              </h1>
+            </div>
             <img
               className="flex-items"
               width="50%"
