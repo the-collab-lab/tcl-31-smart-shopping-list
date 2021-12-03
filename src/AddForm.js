@@ -19,9 +19,11 @@ import {
   Typography,
   Card,
 } from '@mui/material';
-import { lightGreen, orange, red } from '@mui/material/colors';
+import { green, orange, red } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import './App.css';
+
+const newOrange = orange['A400'];
 
 function AddForm() {
   const [item, setItem] = useState('');
@@ -149,9 +151,9 @@ function AddForm() {
                       name="days"
                       checked={days === 7}
                       sx={{
-                        color: lightGreen[800],
+                        color: green[800],
                         '&.Mui-checked': {
-                          color: lightGreen[500],
+                          color: green[800],
                         },
                       }}
                     />
@@ -166,9 +168,9 @@ function AddForm() {
                       name="days"
                       checked={days === 14}
                       sx={{
-                        color: orange[800],
+                        color: newOrange,
                         '&.Mui-checked': {
-                          color: orange[500],
+                          color: newOrange,
                         },
                       }}
                     />
@@ -185,7 +187,7 @@ function AddForm() {
                       sx={{
                         color: red[800],
                         '&.Mui-checked': {
-                          color: red[500],
+                          color: red[800],
                         },
                       }}
                     />

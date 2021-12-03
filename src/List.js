@@ -32,6 +32,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import CardMedia from '@mui/material/CardMedia';
 import './App.css';
 
+const newOrange = orange['A400'];
+
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
 const daysSinceLastPurchaseOrCreationTime = (item) =>
@@ -46,15 +48,15 @@ const getClassName = (item) => {
     item.previousEstimate - daysSinceLastPurchaseOrCreationTime(item);
 
   if (itemIsInactive(item)) {
-    return grey;
+    return grey[500];
   }
   if (daysToBuy <= 7) {
-    return green;
+    return green[800];
   }
   if (daysToBuy > 7 && daysToBuy < 30) {
-    return orange;
+    return newOrange;
   }
-  return red;
+  return red[800];
 };
 
 export function List() {
@@ -232,12 +234,13 @@ export function List() {
             onChange={(event) => setFilterItem(event.target.value)}
             fullWidth={true}
           ></TextField>
+
           <IconButton
             aria-label="delete"
             size="large"
             onClick={() => setFilterItem('')}
           >
-            <ClearIcon sx={{ color: red[500] }}></ClearIcon>
+            <ClearIcon sx={{ color: red[800] }}></ClearIcon>
           </IconButton>
         </Box>
 
@@ -268,9 +271,9 @@ export function List() {
                           }
                           onChange={(e) => handleChange(item.id, e)}
                           sx={{
-                            color: getClassName(item)[800],
+                            color: getClassName(item),
                             '&.MuiCheckbox-root': {
-                              color: getClassName(item)[600],
+                              color: getClassName(item),
                             },
                           }}
                         ></Checkbox>
