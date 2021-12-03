@@ -54,12 +54,13 @@
   margin: 50px;
 }
 
-.main {
+main {
   padding: 40px;
   padding-top: 20px;
   font-size: 40px;
   font-family: 'Inter', sans-serif;
 }
+
 .main-header-container {
   display: flex;
   justify-content: space-between;

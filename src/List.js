@@ -16,14 +16,11 @@ import MuiList from '@mui/material/List';
 import { orange, red, green, grey } from '@mui/material/colors';
 import {
   Box,
-  Button,
   Card,
   Checkbox,
   FormControlLabel,
   IconButton,
   ListItem,
-  ListItemButton,
-  ListItemIcon,
   ListItemText,
   TextField,
   Typography,
@@ -66,7 +63,7 @@ export function List() {
   const [filterItem, setFilterItem] = useState('');
   const [listIsShown, setListIsShown] = useState(false);
 
-  //only change to 60*60*24  for 24 hours
+  //only change to 60*60*24 for 24 hours
   const ONE_DAY = 60 * 60 * 24 * 1000;
 
   useEffect(() => {
@@ -186,150 +183,156 @@ export function List() {
   };
 
   return listIsShown || items.length ? (
-    <Box
-      sx={{
-        width: '45%',
-        minWidth: '500px',
-        m: '0 auto',
-        p: '0.75em',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        '& > :not(style)': { m: 1 },
-      }}
-    >
+    <main>
       <Box
         sx={{
-          width: '100%',
+          width: '45%',
+          minWidth: '500px',
+          m: '0 auto',
+          p: '0.75em',
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           justifyContent: 'center',
+          '& > :not(style)': { m: 1 },
         }}
       >
-        <CardMedia
-          component="img"
-          image="/img/wholeorange.jpg"
-          sx={{
-            height: '7%',
-            width: '7%',
-          }}
-        />
-        <Typography variant="h6" fontFamily={'Inter, sans-serif'} mt={'1%'}>
-          Smart Shopping List
-        </Typography>
-      </Box>
-
-      <AddForm />
-
-      <Card>
         <Box
           sx={{
             width: '100%',
             display: 'flex',
-            margin: 'auto',
             flexDirection: 'row',
-            justifyContent: 'space-around',
-            '& > :not(style)': { m: 1 },
+            justifyContent: 'center',
           }}
         >
-          <TextField
-            value={filterItem}
-            label="Filter items by typing here..."
-            onChange={(event) => setFilterItem(event.target.value)}
-            fullWidth={true}
-          ></TextField>
-
-          <IconButton
-            aria-label="delete"
-            size="large"
-            onClick={() => setFilterItem('')}
-          >
-            <ClearIcon sx={{ color: red[800] }}></ClearIcon>
-          </IconButton>
+          <CardMedia
+            component="img"
+            image="/img/wholeorange.jpg"
+            sx={{
+              height: '7%',
+              width: '7%',
+            }}
+          />
+          <Typography variant="h6" fontFamily={'Inter, sans-serif'} mt={'1%'}>
+            Smart Shopping List
+          </Typography>
         </Box>
 
-        <MuiList sx={{ p: 0, m: 0 }}>
-          {items &&
-            items
-              .filter((item) =>
-                item.name.toLowerCase().includes(filterItem.toLowerCase()),
-              )
-              .sort(itemSort)
-              .map((item, index) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    aria-label={getClassName(item)}
-                    sx={index % 2 ? { background: 'rgba(238,182,34,0.1)' } : {}}
-                    secondaryAction={<DeleteButton id={item.id} />}
-                  >
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          dge="start"
-                          value={item.name}
-                          id={`custom-checkbox-${item.id}`}
-                          checked={
-                            !!item.lastPurchasedDate &&
-                            new Date() - item.lastPurchasedDate < ONE_DAY
-                          }
-                          onChange={(e) => handleChange(item.id, e)}
-                          sx={{
-                            color: getClassName(item),
-                            '&.MuiCheckbox-root': {
-                              color: getClassName(item),
-                            },
-                          }}
-                        ></Checkbox>
-                      }
-                      label={
-                        <ListItemText
-                          id={item.id}
-                          primary={item.name}
-                        ></ListItemText>
-                      }
-                    />
-                  </ListItem>
-                );
-              })}
-        </MuiList>
+        <AddForm />
 
-        <CardMedia
-          component="img"
-          image="/img/orange.jpg"
-          sx={{
-            height: '30%',
-            width: '30%',
-            display: 'flex',
-            float: 'right',
-          }}
-        />
-      </Card>
-    </Box>
+        <Card>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              margin: 'auto',
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              '& > :not(style)': { m: 1 },
+            }}
+          >
+            <TextField
+              value={filterItem}
+              label="Filter items by typing here..."
+              onChange={(event) => setFilterItem(event.target.value)}
+              fullWidth={true}
+            ></TextField>
+
+            <IconButton
+              aria-label="delete"
+              size="large"
+              onClick={() => setFilterItem('')}
+            >
+              <ClearIcon sx={{ color: red[800] }}></ClearIcon>
+            </IconButton>
+          </Box>
+
+          <MuiList sx={{ p: 0, m: 0 }}>
+            {items &&
+              items
+                .filter((item) =>
+                  item.name.toLowerCase().includes(filterItem.toLowerCase()),
+                )
+                .sort(itemSort)
+                .map((item, index) => {
+                  return (
+                    <ListItem
+                      key={item.id}
+                      aria-label={getClassName(item)}
+                      sx={
+                        index % 2 ? { background: 'rgba(238,182,34,0.1)' } : {}
+                      }
+                      secondaryAction={<DeleteButton id={item.id} />}
+                    >
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            dge="start"
+                            value={item.name}
+                            id={`custom-checkbox-${item.id}`}
+                            checked={
+                              !!item.lastPurchasedDate &&
+                              new Date() - item.lastPurchasedDate < ONE_DAY
+                            }
+                            onChange={(e) => handleChange(item.id, e)}
+                            sx={{
+                              color: getClassName(item),
+                              '&.MuiCheckbox-root': {
+                                color: getClassName(item),
+                              },
+                            }}
+                          ></Checkbox>
+                        }
+                        label={
+                          <ListItemText
+                            id={item.id}
+                            primary={item.name}
+                          ></ListItemText>
+                        }
+                      />
+                    </ListItem>
+                  );
+                })}
+          </MuiList>
+
+          <CardMedia
+            component="img"
+            image="/img/orange.jpg"
+            sx={{
+              height: '30%',
+              width: '30%',
+              display: 'flex',
+              float: 'right',
+            }}
+          />
+        </Card>
+      </Box>
+    </main>
   ) : (
     <>
-      <Box
-        sx={{
-          width: 368,
-          display: 'flex',
-          margin: 'auto',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          '& > :not(style)': { m: 1 },
-          alignItems: 'center',
-        }}
-      >
-        <h3>
-          Welcome, friend! Your list is currently empty. Click below to add your
-          first item!
-        </h3>
-        <button
-          className="emptyListButton"
-          onClick={() => setListIsShown(true)}
+      <main>
+        <Box
+          sx={{
+            width: 368,
+            display: 'flex',
+            margin: 'auto',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            '& > :not(style)': { m: 1 },
+            alignItems: 'center',
+          }}
         >
-          Get Started
-        </button>
-      </Box>
+          <h3>
+            Welcome, friend! Your list is currently empty. Click below to add
+            your first item!
+          </h3>
+          <button
+            className="emptyListButton"
+            onClick={() => setListIsShown(true)}
+          >
+            Get Started
+          </button>
+        </Box>
+      </main>
     </>
   );
 }
