@@ -29,9 +29,10 @@ import {
   Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-const newOrange = orange['A400'];
 import CardMedia from '@mui/material/CardMedia';
 import './App.css';
+
+const newOrange = orange['A400'];
 
 const convertToDays = (num) => Math.round(num / 1000 / 60 / 60 / 24);
 
