@@ -6,6 +6,9 @@ The goal of this project is to collaborate with other developers on our Collab L
 
 As a user, you enter items (e.g., “Greek yogurt” or “Paper towels”) into your list. Each time you buy the item, you mark it as purchased in the list. Over time, the app comes to understand the intervals at which you buy different items. If an item is likely to be due to be bought soon, it rises to the top of the shopping list. You're welcome!
 
+## See it live
+Hosted [here on Netlify](https://adoring-shirley-b15129.netlify.app)
+
 ## Features
 - Built with React and Firebase for storing data
 - MaterialUI and responsive design incorporated throughout 
