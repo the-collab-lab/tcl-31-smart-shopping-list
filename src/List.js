@@ -70,6 +70,10 @@ export function List() {
   const ONE_DAY = 60 * 60 * 24 * 1000;
 
   useEffect(() => {
+    document.title = 'Your Smart Shopping List';
+  }, []);
+
+  useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       history.push('/');
