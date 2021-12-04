@@ -67,9 +67,10 @@ main {
   align-items: center;
   width: 50%;
 }
+
 .main-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-weight: bold;
   align-items: center;
 }
@@ -131,7 +132,7 @@ main {
 
 .inputExistingList {
   font-size: 20px;
-  border-radius: 15px;
+  border-radius: 5px;
   border-width: 0.5px;
   padding: 12px;
   margin: 20px;
