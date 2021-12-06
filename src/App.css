@@ -7,6 +7,7 @@
 
 .flex-items {
   padding: 10px;
+  /* align-content: auto; */
 }
 
 .navbar {
@@ -87,6 +88,17 @@ main {
   font-weight: bold;
   color: #ff8601;
   text-align: center;
+  font-size: 3rem;
+  margin-bottom: 0.25em;
+}
+
+#how-it-works-text {
+  font-size: 2.75rem;
+  text-align: left;
+}
+
+#how-it-works-text-top {
+  margin-bottom: 1em;
 }
 
 .buttons {

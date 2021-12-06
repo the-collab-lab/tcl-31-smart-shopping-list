@@ -43,12 +43,13 @@ export function Home() {
               sx={{
                 height: '50px',
                 width: '50px',
+                mt: '10px',
               }}
             />
             <Typography
               variant="h6"
               fontFamily={'Inter, sans-serif'}
-              mt={'12px'}
+              mt={'20px'}
             >
               Smart Shopping List
             </Typography>
@@ -98,12 +99,17 @@ export function Home() {
             />
             <div className="flex-items">
               <h2 className="main-content-title">How it works</h2>
-              <p>
-                Add an item to your list, then select it when you want to buy
-                again. After a couple purchases, your smart list will predict
-                when you need to buy it again. The item appears right where it
-                needs to be on your list so you don't forget!
-              </p>
+              <div id="how-it-works-text">
+                <p id="how-it-works-text-top">
+                  Let's say you want to buy oranges. Add them to your list, and
+                  just select "oranges" whenever you want to buy them again.
+                </p>
+                <p>
+                  Soon, the smart list will predict when you need oranges again,
+                  moving them to the right place on your list. One less thing to
+                  worry about!
+                </p>
+              </div>
             </div>
           </div>
           {/* <div className="buttons flex-items">
