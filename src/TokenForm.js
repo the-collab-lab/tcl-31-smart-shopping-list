@@ -60,7 +60,7 @@ const TokenForm = () => {
           id="existingToken"
           type="text"
           name="existingToken"
-          placeholder="Type list token here..."
+          placeholder="Type your list token here..."
           value={formData}
           onChange={handleChange}
         />

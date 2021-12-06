@@ -19,6 +19,7 @@ import {
   Typography,
   Card,
 } from '@mui/material';
+import { spacing } from '@mui/system';
 import { green, orange, red } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import './App.css';
@@ -101,12 +102,17 @@ function AddForm() {
           sx={{
             width: '100%',
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'space-between',
             '& > :not(style)': { m: 1 },
           }}
         >
-          <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+          <Box
+            sx={{
+              width: '90%',
+              // display: 'flex', flexDirection: 'column'
+            }}
+          >
             <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
               What do you need?
             </Typography>
@@ -121,17 +127,22 @@ function AddForm() {
                 fullWidth={true}
                 value={item}
               />
-              <IconButton
+              {/* <IconButton
                 color="primary"
                 aria-label="add to shopping cart"
                 size="large"
                 onClick={(e) => handleSubmit(e)}
               >
                 <AddShoppingCartIcon />
-              </IconButton>
+              </IconButton> */}
             </Box>
           </Box>
-          <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+          <Box
+            sx={{
+              width: '90%',
+              // display: 'flex', flexDirection: 'column'
+            }}
+          >
             <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
               When do you need it?
             </Typography>
@@ -196,6 +207,15 @@ function AddForm() {
                 />
               </RadioGroup>
             </FormControl>
+            <IconButton
+              color="primary"
+              aria-label="add to shopping cart"
+              size="large"
+              sx={{ mt: -2, mx: 'auto' }}
+              onClick={(e) => handleSubmit(e)}
+            >
+              <AddShoppingCartIcon />
+            </IconButton>
           </Box>
         </Box>
         {errorMessage !== '' && (

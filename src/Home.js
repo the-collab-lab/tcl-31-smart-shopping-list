@@ -4,7 +4,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 import TokenForm from './TokenForm';
 import orangeSliceRemoveBackground from './assets/orangeSliceRemoveBackground.png';
 import orangeWhole from './assets/orangeWhole.jpg';
-import { Button, Box, Typography, CardMedia } from '@mui/material';
+import { Button, Box, Container, Typography, CardMedia } from '@mui/material';
 import { orange } from '@mui/material/colors';
 
 const newOrange = orange['A400'];
@@ -28,6 +28,7 @@ export function Home() {
       <Redirect to="/list" />
     ) : (
       <>
+        {/* <Container maxWidth="xl"> */}
         <header>
           <Box
             sx={{
@@ -59,7 +60,7 @@ export function Home() {
         <main>
           <div className="main-header">
             <div className="main-header-container">
-              <h1 className="flex-items main-header-title">
+              <h1 className="main-header-title">
                 Remember what to buy,{' '}
                 <span className="h1_standout">exactly</span> when you need it
               </h1>
@@ -80,9 +81,10 @@ export function Home() {
             </Button>
 
             <TokenForm />
-
+            {/* <div className="main-oranges"> */}
             <img
               className="flex-items"
+              id="orange-slice"
               width="50%"
               height="50%"
               src={orangeSliceRemoveBackground}
@@ -92,12 +94,15 @@ export function Home() {
           <div className="main-content">
             <img
               className="flex-items"
+              id="orange-whole"
               width="50%"
               height="50%"
               src={orangeWhole}
               alt="orange whole"
             />
-            <div className="flex-items">
+            {/* </div> */}
+
+            <div className="algo">
               <h2 className="main-content-title">How it works</h2>
               <div id="how-it-works-text">
                 <p id="how-it-works-text-top">
@@ -121,6 +126,7 @@ export function Home() {
             <TokenForm />
           </div> */}
         </main>
+        {/* </Container> */}
       </>
     )
   );

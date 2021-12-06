@@ -16,15 +16,16 @@ import MuiList from '@mui/material/List';
 import { orange, red, green, grey } from '@mui/material/colors';
 import {
   Box,
+  Button,
   Card,
   Checkbox,
+  Container,
   FormControlLabel,
   IconButton,
   ListItem,
   ListItemText,
   TextField,
   Typography,
-  Button,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import CardMedia from '@mui/material/CardMedia';
@@ -185,10 +186,11 @@ export function List() {
 
   return listIsShown || items.length ? (
     <main>
+      {/* <Container maxWidth="xl"> */}
       <Box
         sx={{
-          width: '45%',
-          minWidth: '500px',
+          width: '80%',
+          minWidth: '300px',
           m: '0 auto',
           p: '0.75em',
           display: 'flex',
@@ -307,6 +309,7 @@ export function List() {
           />
         </Card>
       </Box>
+      {/* </Container> */}
     </main>
   ) : (
     <>
