@@ -24,6 +24,7 @@ import {
   ListItemText,
   TextField,
   Typography,
+  Button,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import CardMedia from '@mui/material/CardMedia';
@@ -312,7 +313,7 @@ export function List() {
       <main>
         <Box
           sx={{
-            width: 368,
+            // width: 368,
             display: 'flex',
             margin: 'auto',
             flexDirection: 'column',
@@ -321,16 +322,32 @@ export function List() {
             alignItems: 'center',
           }}
         >
-          <h3>
-            Welcome, friend! Your list is currently empty. Click below to add
-            your first item!
-          </h3>
-          <button
+          <h1>Welcome, friend!</h1>
+          <p id="emptyListText">
+            {' '}
+            Your list is currently empty. Click below to add your first item.
+          </p>
+          <Button
+            variant="contained"
+            className="emptyListButton"
+            aria-label="emptyListButton"
+            size="large"
+            sx={{
+              background: newOrange,
+              fontWeight: 775,
+              fontSize: 21,
+            }}
+            onClick={() => setListIsShown(true)}
+          >
+            Get started
+          </Button>
+
+          {/* <button
             className="emptyListButton"
             onClick={() => setListIsShown(true)}
           >
             Get Started
-          </button>
+          </button> */}
         </Box>
       </main>
     </>
