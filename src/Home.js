@@ -41,6 +41,7 @@ export function Home() {
             <CardMedia
               component="img"
               image="/img/wholeorange.jpg"
+              alt=""
               sx={{
                 height: '50px',
                 width: '50px',
@@ -88,7 +89,7 @@ export function Home() {
               width="50%"
               height="50%"
               src={orangeSliceRemoveBackground}
-              alt="orange slice"
+              alt=""
             />
           </div>
           <div className="main-content">
@@ -98,7 +99,7 @@ export function Home() {
               width="50%"
               height="50%"
               src={orangeWhole}
-              alt="orange whole"
+              alt=""
             />
             {/* </div> */}
 

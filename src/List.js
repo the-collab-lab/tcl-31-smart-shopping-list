@@ -212,6 +212,7 @@ export function List() {
             component="img"
             className="list-header"
             image="/img/wholeorange.jpg"
+            alt=""
             sx={{
               // height: '7%',
               // width: '7%',
@@ -311,6 +312,7 @@ export function List() {
           <CardMedia
             component="img"
             image="/img/orange.jpg"
+            alt=""
             sx={{
               height: '30%',
               width: '30%',
