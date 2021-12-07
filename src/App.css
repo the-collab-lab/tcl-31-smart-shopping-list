@@ -270,3 +270,7 @@ p {
     padding: .25em
   } */
 }
+
+.list-header {
+  padding: 0px;
+}

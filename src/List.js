@@ -190,9 +190,10 @@ export function List() {
       <Box
         sx={{
           width: '80%',
-          minWidth: '300px',
+          minWidth: '310px',
           m: '0 auto',
           p: '0.75em',
+          pt: '0em',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -209,13 +210,23 @@ export function List() {
         >
           <CardMedia
             component="img"
+            className="list-header"
             image="/img/wholeorange.jpg"
             sx={{
-              height: '7%',
-              width: '7%',
+              // height: '7%',
+              // width: '7%',
+              height: '40px',
+              width: '40px',
+              mt: '5px',
             }}
           />
-          <Typography variant="h6" fontFamily={'Inter, sans-serif'} mt={'1%'}>
+          <Typography
+            variant="h6"
+            className="list-header"
+            fontFamily={'Inter, sans-serif'}
+            mt={'15px'}
+            // mt={'1%'}
+          >
             Smart Shopping List
           </Typography>
         </Box>
