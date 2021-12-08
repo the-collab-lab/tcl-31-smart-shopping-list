@@ -11,6 +11,7 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
+  FormLabel,
   Radio,
   TextField,
   Box,
@@ -20,7 +21,7 @@ import {
   Card,
 } from '@mui/material';
 import { spacing } from '@mui/system';
-import { green, orange, red } from '@mui/material/colors';
+import { black, green, orange, red } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import './App.css';
 
@@ -143,9 +144,18 @@ function AddForm() {
               // display: 'flex', flexDirection: 'column'
             }}
           >
-            <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
+            {/* <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
               When do you need it?
-            </Typography>
+            </Typography> */}
+            <FormLabel component="legend">
+              <Typography
+                variant="h6"
+                fontFamily={'Inter, sans-serif'}
+                sx={{ color: 'black' }}
+              >
+                When do you need it?
+              </Typography>
+            </FormLabel>
             <FormControl component="fieldset">
               <RadioGroup
                 row
