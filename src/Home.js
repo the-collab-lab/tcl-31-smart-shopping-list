@@ -4,7 +4,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 import TokenForm from './TokenForm';
 import orangeSliceRemoveBackground from './assets/orangeSliceRemoveBackground.png';
 import orangeWhole from './assets/orangeWhole.jpg';
-import { Button, Box, Container, Typography, CardMedia } from '@mui/material';
+import { Button, Box, Typography, CardMedia } from '@mui/material';
 import { orange } from '@mui/material/colors';
 
 const newOrange = orange['A400'];

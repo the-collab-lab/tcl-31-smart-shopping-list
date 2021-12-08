@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { collection, query, onSnapshot } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
-import { Box, Button, Typography } from '@mui/material';
-import { orange, black } from '@mui/material/colors';
+import { Button, Typography } from '@mui/material';
+import { orange } from '@mui/material/colors';
 
 const newOrange = orange['A400'];
 
