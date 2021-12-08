@@ -114,6 +114,13 @@ function AddForm() {
               // display: 'flex', flexDirection: 'column'
             }}
           >
+            {errorMessage !== '' && (
+              <Box>
+                <Alert severity="error" id="text-field-error">
+                  {errorMessage}
+                </Alert>
+              </Box>
+            )}
             <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
               What do you need?
             </Typography>
@@ -125,6 +132,7 @@ function AddForm() {
                   setErrorMessage('');
                 }}
                 label="Type your item here"
+                aria-describedby="text-field-error"
                 fullWidth={true}
                 value={item}
               />
@@ -228,11 +236,11 @@ function AddForm() {
             </IconButton>
           </Box>
         </Box>
-        {errorMessage !== '' && (
+        {/* {errorMessage !== '' && (
           <Box>
             <Alert severity="error">{errorMessage}</Alert>
           </Box>
-        )}
+        )} */}
       </Card>
     </FormControl>
   );

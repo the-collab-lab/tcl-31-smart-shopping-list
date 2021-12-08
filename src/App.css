@@ -178,6 +178,7 @@ main {
 .validation {
   font-size: 20px;
   color: red;
+  padding: 10px 0px 0px;
 }
 
 .inactive {

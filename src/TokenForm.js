@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { collection, query, onSnapshot } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
-import { Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { orange, black } from '@mui/material/colors';
 
 const newOrange = orange['A400'];
@@ -54,6 +54,13 @@ const TokenForm = () => {
 
   return (
     <form className="existingListForm" action="" onSubmit={handleSubmit}>
+      {formError && (
+        <Typography className="validation" id="token-not-working">
+          That token didn't work, please try again!
+        </Typography>
+      )}
+
+      {/* {formError && <p className="validation">That token didn't work, please try again!</p>} */}
       <label htmlFor="existingToken">
         <input
           className="inputExistingList"
@@ -61,11 +68,12 @@ const TokenForm = () => {
           type="text"
           name="existingToken"
           placeholder="Type your list token here..."
+          aria-describedby="token-not-working"
           value={formData}
           onChange={handleChange}
         />
       </label>
-      {formError && <p className="validation">Please enter a valid token.</p>}
+      {/* {formError && <p className="validation">That token didn't work, please try again!</p>} */}
 
       <Button
         // variant="outlined"
