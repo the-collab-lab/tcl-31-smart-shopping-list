@@ -20,8 +20,7 @@ import {
   Typography,
   Card,
 } from '@mui/material';
-import { spacing } from '@mui/system';
-import { black, green, orange, red } from '@mui/material/colors';
+import { green, orange, red } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import './App.css';
 

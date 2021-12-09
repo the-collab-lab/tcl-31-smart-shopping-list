@@ -103,7 +103,7 @@ export function Home() {
             />
             {/* </div> */}
 
-            <div className="algo">
+            <div className="main-content-text">
               <h2 className="main-content-title">How it works</h2>
               <div id="how-it-works-text">
                 <p id="how-it-works-text-top">
