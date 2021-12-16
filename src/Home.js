@@ -24,8 +24,8 @@ export function Home() {
       <Redirect to="/list" />
     ) : (
       <>
-        <nav className="navbar">Smart Shopping List</nav>
-        <div className="main">
+        <header className="navbar">Smart Shopping List</header>
+        <main>
           <div className="main-header">
             <div className="main-header-container">
               <h1 className="flex-items main-header-title">
@@ -65,7 +65,7 @@ export function Home() {
             </button>
             <TokenForm />
           </div>
-        </div>
+        </main>
       </>
     )
   );
