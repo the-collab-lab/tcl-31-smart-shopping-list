@@ -2,6 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { collection, query, onSnapshot } from '@firebase/firestore';
 import { db } from './lib/firebase.js';
+import { Button, Typography } from '@mui/material';
+import { orange } from '@mui/material/colors';
+
+const newOrange = orange['A400'];
 
 /** This component is a form that allows a user to use an existing token so that they can share an existing list */
 
@@ -50,21 +54,56 @@ const TokenForm = () => {
 
   return (
     <form className="existingListForm" action="" onSubmit={handleSubmit}>
+      {formError && (
+        <Typography className="validation" id="token-not-working">
+          That token didn't work, please try again!
+        </Typography>
+      )}
+
+      {/* {formError && <p className="validation">That token didn't work, please try again!</p>} */}
       <label htmlFor="existingToken">
         <input
           className="inputExistingList"
           id="existingToken"
           type="text"
           name="existingToken"
-          placeholder="add token here"
+          placeholder="Type your list token here..."
+          aria-describedby="token-not-working"
+          value={formData}
+          onChange={handleChange}
+        />
+      </label>
+      {/* {formError && <p className="validation">That token didn't work, please try again!</p>} */}
+
+      <Button
+        // variant="outlined"
+        variant="contained"
+        aria-label="existingTokenButton"
+        size="large"
+        sx={{
+          background: newOrange,
+          // fontColor: "black",
+          fontWeight: 775,
+          fontSize: 21,
+        }}
+        type="submit"
+      >
+        Join an existing list
+      </Button>
+
+      {/* <label htmlFor="existingToken">
+        <input
+          className="inputExistingList"
+          id="existingToken"
+          type="text"
+          name="existingToken"
+          placeholder="Type list token here..."
           value={formData}
           onChange={handleChange}
         />
       </label>
       {formError && <p className="validation">Please enter a valid token.</p>}
-      <button className="existingListButton" type="submit">
-        Join an existing list
-      </button>
+  */}
     </form>
   );
 };

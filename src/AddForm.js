@@ -11,6 +11,7 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
+  FormLabel,
   Radio,
   TextField,
   Box,
@@ -101,12 +102,24 @@ function AddForm() {
           sx={{
             width: '100%',
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'space-between',
             '& > :not(style)': { m: 1 },
           }}
         >
-          <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+          <Box
+            sx={{
+              width: '90%',
+              // display: 'flex', flexDirection: 'column'
+            }}
+          >
+            {errorMessage !== '' && (
+              <Box>
+                <Alert severity="error" id="text-field-error">
+                  {errorMessage}
+                </Alert>
+              </Box>
+            )}
             <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
               What do you need?
             </Typography>
@@ -118,23 +131,38 @@ function AddForm() {
                   setErrorMessage('');
                 }}
                 label="Type your item here"
+                aria-describedby="text-field-error"
                 fullWidth={true}
                 value={item}
               />
-              <IconButton
+              {/* <IconButton
                 color="primary"
                 aria-label="add to shopping cart"
                 size="large"
                 onClick={(e) => handleSubmit(e)}
               >
                 <AddShoppingCartIcon />
-              </IconButton>
+              </IconButton> */}
             </Box>
           </Box>
-          <Box sx={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
-            <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
+          <Box
+            sx={{
+              width: '90%',
+              // display: 'flex', flexDirection: 'column'
+            }}
+          >
+            {/* <Typography variant="h6" fontFamily={'Inter, sans-serif'}>
               When do you need it?
-            </Typography>
+            </Typography> */}
+            <FormLabel component="legend">
+              <Typography
+                variant="h6"
+                fontFamily={'Inter, sans-serif'}
+                sx={{ color: 'black' }}
+              >
+                When do you need it?
+              </Typography>
+            </FormLabel>
             <FormControl component="fieldset">
               <RadioGroup
                 row
@@ -196,13 +224,22 @@ function AddForm() {
                 />
               </RadioGroup>
             </FormControl>
+            <IconButton
+              color="primary"
+              aria-label="add to shopping cart"
+              size="large"
+              sx={{ mt: -2, mx: 'auto' }}
+              onClick={(e) => handleSubmit(e)}
+            >
+              <AddShoppingCartIcon />
+            </IconButton>
           </Box>
         </Box>
-        {errorMessage !== '' && (
+        {/* {errorMessage !== '' && (
           <Box>
             <Alert severity="error">{errorMessage}</Alert>
           </Box>
-        )}
+        )} */}
       </Card>
     </FormControl>
   );

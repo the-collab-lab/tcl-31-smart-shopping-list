@@ -16,6 +16,7 @@ import MuiList from '@mui/material/List';
 import { orange, red, green, grey } from '@mui/material/colors';
 import {
   Box,
+  Button,
   Card,
   Checkbox,
   FormControlLabel,
@@ -184,12 +185,14 @@ export function List() {
 
   return listIsShown || items.length ? (
     <main>
+      {/* <Container maxWidth="xl"> */}
       <Box
         sx={{
-          width: '45%',
-          minWidth: '500px',
+          width: '80%',
+          minWidth: '310px',
           m: '0 auto',
           p: '0.75em',
+          pt: '0em',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -206,13 +209,24 @@ export function List() {
         >
           <CardMedia
             component="img"
+            className="list-header"
             image="/img/wholeorange.jpg"
+            alt=""
             sx={{
-              height: '7%',
-              width: '7%',
+              // height: '7%',
+              // width: '7%',
+              height: '40px',
+              width: '40px',
+              mt: '5px',
             }}
           />
-          <Typography variant="h6" fontFamily={'Inter, sans-serif'} mt={'1%'}>
+          <Typography
+            variant="h6"
+            className="list-header"
+            fontFamily={'Inter, sans-serif'}
+            mt={'15px'}
+            // mt={'1%'}
+          >
             Smart Shopping List
           </Typography>
         </Box>
@@ -297,6 +311,7 @@ export function List() {
           <CardMedia
             component="img"
             image="/img/orange.jpg"
+            alt=""
             sx={{
               height: '30%',
               width: '30%',
@@ -306,13 +321,14 @@ export function List() {
           />
         </Card>
       </Box>
+      {/* </Container> */}
     </main>
   ) : (
     <>
       <main>
         <Box
           sx={{
-            width: 368,
+            // width: 368,
             display: 'flex',
             margin: 'auto',
             flexDirection: 'column',
@@ -321,16 +337,32 @@ export function List() {
             alignItems: 'center',
           }}
         >
-          <h3>
-            Welcome, friend! Your list is currently empty. Click below to add
-            your first item!
-          </h3>
-          <button
+          <h1>Welcome, friend!</h1>
+          <p id="emptyListText">
+            {' '}
+            Your list is currently empty. Click below to add your first item.
+          </p>
+          <Button
+            variant="contained"
+            className="emptyListButton"
+            aria-label="emptyListButton"
+            size="large"
+            sx={{
+              background: newOrange,
+              fontWeight: 775,
+              fontSize: 21,
+            }}
+            onClick={() => setListIsShown(true)}
+          >
+            Get started
+          </Button>
+
+          {/* <button
             className="emptyListButton"
             onClick={() => setListIsShown(true)}
           >
             Get Started
-          </button>
+          </button> */}
         </Box>
       </main>
     </>

@@ -5,11 +5,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-.flex-items {
-  padding: 10px;
-}
-
-.navbar {
+/* .navbar {
   background-color: #fff;
   padding: 20px;
   padding-left: 50px;
@@ -23,7 +19,7 @@
   border-radius: 50%;
   background-color: #fff;
   margin-right: 20px;
-}
+} */
 
 .links {
   position: fixed;
@@ -55,27 +51,40 @@
 }
 
 main {
-  padding: 40px;
+  /* padding: 40px; */
   padding-top: 20px;
   font-size: 40px;
-  font-family: 'Inter', sans-serif;
+  /* font-family: 'Inter', sans-serif; */
 }
 
 .main-header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
   width: 50%;
 }
+
 .main-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-weight: bold;
   align-items: center;
 }
 .main-header-title {
   text-align: center;
+  font-size: 5rem;
 }
+
+#orange-slice,
+#orange-whole {
+  padding-top: 1em;
+}
+
+/* .flex-items {
+  padding-top: 1em;
+  padding-bottom: -1em
+} */
 .main-content {
   display: flex;
   flex-direction: row;
@@ -85,6 +94,17 @@ main {
   font-weight: bold;
   color: #ff8601;
   text-align: center;
+  font-size: 3rem;
+  margin-bottom: 0.25em;
+}
+
+#how-it-works-text {
+  font-size: 2.75rem;
+  text-align: left;
+}
+
+#how-it-works-text-top {
+  margin-bottom: 1em;
 }
 
 .buttons {
@@ -129,12 +149,17 @@ main {
   width: 200px;
 }
 
+#emptyListText {
+  margin-bottom: 30px;
+}
+
 .inputExistingList {
   font-size: 20px;
-  border-radius: 15px;
+  border-radius: 5px;
   border-width: 0.5px;
   padding: 12px;
-  margin: 20px;
+  margin-top: 30px;
+  margin-bottom: 5px;
   width: 300px;
 }
 .existingListButton {
@@ -153,6 +178,7 @@ main {
 .validation {
   font-size: 20px;
   color: red;
+  padding: 10px 0px 0px;
 }
 
 .inactive {
@@ -206,6 +232,10 @@ p {
   .main-header {
     flex-direction: column;
   }
+
+  /* .main-header-title {
+    font-size: 10rem
+  } */
   .main-content {
     flex-direction: column-reverse;
   }
@@ -222,4 +252,26 @@ p {
   .main-header-container {
     width: 100%;
   }
+}
+
+@media only screen and (max-width: 500px) {
+  .main-header-title {
+    font-size: 3rem;
+    /* padding: .25em */
+  }
+  body {
+    padding: 0 0.5em;
+  }
+
+  .main-content {
+    padding: 1em;
+  }
+
+  /* .main-content-title {
+    padding: .25em
+  } */
+}
+
+.list-header {
+  padding: 0px;
 }
