@@ -1,6 +1,6 @@
 import React from 'react';
-import { getToken } from '@the-collab-lab/shopping-list-utils';
-import { useHistory, Redirect } from 'react-router-dom';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
+import { Redirect } from 'react-router-dom';
 import TokenForm from './TokenForm';
 import orangeSliceRemoveBackground from './assets/orangeSliceRemoveBackground.png';
 import orangeWhole from './assets/orangeWhole.jpg';
@@ -10,16 +10,16 @@ import { orange } from '@mui/material/colors';
 const newOrange = orange['A400'];
 
 export function Home() {
-  const history = useHistory();
   let token;
   token = localStorage.getItem('token');
   console.log(token);
 
   function createToken() {
-    //-- create a token and store the token in localStorage
-    token = localStorage.setItem('token', getToken());
-    //-- redirect user to the "list" view
-    history.push('/list');
+    // //-- create a token and store the token in localStorage
+    // token = localStorage.setItem('token', getToken());
+    // //-- redirect user to the "list" view
+    // history.push('/list');
+    console.log('Creating new lists is no longer supported');
   }
 
   return (
@@ -128,6 +128,7 @@ export function Home() {
           </div> */}
         </main>
         {/* </Container> */}
+        <ArchivalNoticeModal />
       </>
     )
   );
