@@ -61,6 +61,7 @@ const TokenForm = () => {
       )}
 
       {/* {formError && <p className="validation">That token didn't work, please try again!</p>} */}
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label htmlFor="existingToken">
         <input
           className="inputExistingList"
